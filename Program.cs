@@ -10,9 +10,15 @@ namespace CoolCalculator
             Console.Write("Enter your name: ");
             string fname = Console.ReadLine();
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Calculator! \nVersion: " + versionNum);
-            Console.Write("Current Date and Time is : ");
-            DateTime now = DateTime.Now;
-            Console.WriteLine(now);
+            //Console.Write("Current Date and Time is : ");
+            //DateTime now = DateTime.Now;
+            //Console.WriteLine(now);
+
+            string methodType;
+            Console.Write("Choose a method(Basic or Advanced):");
+            methodType = Console.ReadLine();
+
+            
             Console.WriteLine("Available Operators: \nFor Addition: + \nFor Subtraction: - \nFor Division: / \nFor Multiplication: * \nFor Modulus: % ");
 
         Begin:
