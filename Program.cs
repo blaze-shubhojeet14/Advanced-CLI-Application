@@ -14,41 +14,48 @@ namespace CoolCalculator
             Console.WriteLine(now);
             Console.WriteLine("Available Operators: \nFor Addition: + \nFor Subtraction: - \nFor Division: / \nFor Multiplication: * \nFor Modulus: % ");
 
-            Begin:
+        Begin:
 
-            Console.Write("\nEnter a number: ");
-            double num1 = Convert.ToDouble(Console.ReadLine());
+            try
+            {
+                Console.Write("\nEnter a number: ");
+                double num1 = Convert.ToDouble(Console.ReadLine());
 
-            Console.Write("Enter another number: ");
-            double num2 = Convert.ToDouble(Console.ReadLine());
+                Console.Write("Enter another number: ");
+                double num2 = Convert.ToDouble(Console.ReadLine());
 
-            Console.Write("Enter an Operator: ");
-            string op = Console.ReadLine();
+                Console.Write("Enter an Operator: ");
+                string op = Console.ReadLine();
 
-            if (op == "+")
-            {
-                Console.WriteLine(num1 + num2);
+                if (op == "+")
+                {
+                    Console.WriteLine(num1 + num2);
+                }
+                else if (op == "-")
+                {
+                    Console.WriteLine(num1 - num2);
+                }
+                else if (op == "/")
+                {
+                    Console.WriteLine("Quotient is " + num1 / num2);
+                }
+                else if (op == "*")
+                {
+                    Console.WriteLine("Product is " + num1 * num2);
+                }
+                else if (op == "%")
+                {
+                    Console.WriteLine("Modulus is " + num1 % num2);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Operator, pls enter a valid operator!");
+
+                }
             }
-            else if (op == "-")
+            catch
             {
-                Console.WriteLine(num1 - num2);
-            }
-            else if (op == "/")
-            {
-                Console.WriteLine("Quotient is " + num1 / num2);
-            }
-            else if (op == "*")
-            {
-                Console.WriteLine("Product is " + num1 * num2);
-            }
-            else if (op == "%")
-            {
-                Console.WriteLine("Modulus is " + num1 % num2);
-            }
-            else
-            {
-                Console.WriteLine("Invalid Operator, pls enter a valid operator!");
-        
+                Console.WriteLine("Unexpected Error, pls try again!");
             }
             goto Begin;
 
