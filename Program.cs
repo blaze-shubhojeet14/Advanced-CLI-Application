@@ -20,7 +20,7 @@ namespace CoolCalculator
 
             Application:
             string applicationIn;
-            Console.Write("Available Applications: Calculator | GuessingGame | Clock | Terminate CLI (exit) \nChoose your desired application: ");
+            Console.Write("Available Applications: Calculator | GuessingGame | Clock | Calendar | Terminate CLI (exit) | Help \nChoose your desired application: ");
             applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -38,6 +38,12 @@ namespace CoolCalculator
                     break;
                 case "exit":
                     Environment.Exit(0);
+                    break;
+                case "Help":
+                    Console.WriteLine("This module is currently under development");
+                    break;
+                case "Calendar":
+                    Console.WriteLine("This module is currently under development");
                     break;
                 default:
                     Console.WriteLine("Pls enter a valid application!");
