@@ -8,7 +8,7 @@ namespace CoolCalculator
 
         static void Main(string[] args)
         {
-            string versionNum = "v1.0.4";
+            string versionNum = "v1.0.5";
             Console.Write("Enter your name: ");
             string fname = Console.ReadLine();
 
@@ -34,8 +34,7 @@ namespace CoolCalculator
                     goto Application;
                     break;
                 case "Clock":
-                    Console.WriteLine("This module is currently under development");
-                    goto Application;
+                    goto Clock;
                     break;
                 case "exit":
                     Environment.Exit(0);
@@ -46,7 +45,35 @@ namespace CoolCalculator
                     break;
             }
             
-            //Calculator Modules
+            //Clock Modules
+            Clock:
+            try
+            {
+                Console.Write("\nCurrent Date and Time is : ");
+                DateTime now = DateTime.Now;
+                Console.WriteLine(now);
+
+                string optionsBtn;
+                Console.Write("\nAvailable Options: Refresh (Ref)/Enter key | Return to Main Menu (RMM) \nChoose an option: ");
+                optionsBtn = Console.ReadLine();
+
+                switch (optionsBtn)
+                {
+                    case "Ref":
+                        goto Clock;
+                    case "RMM":
+                        goto Application;
+                    default:
+                        goto Clock;
+                }                 
+            }
+            catch
+            {
+                Console.WriteLine("Oops Something Went Wrong!");
+            }
+
+
+        //Calculator Modules
         Method:
             string methodType;
             Console.WriteLine("\nAvailable Methods: Basic | Advanced | Return to Main Menu (RMM) (By Default Advanced method is selected) ");
