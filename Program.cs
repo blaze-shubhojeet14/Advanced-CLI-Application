@@ -6,9 +6,10 @@ namespace CoolCalculator
     {
         static void Main(string[] args)
         {
+            string versionNum = "v1";
             Console.Write("Enter your name: ");
             string fname = Console.ReadLine();
-            Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Calculator!");
+            Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Calculator! \nVersion: " + versionNum);
             Console.Write("Current Date and Time is : ");
             DateTime now = DateTime.Now;
             Console.WriteLine(now);
