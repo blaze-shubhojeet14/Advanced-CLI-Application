@@ -6,7 +6,7 @@ namespace CoolCalculator
     {
         static void Main(string[] args)
         {
-            string versionNum = "v1";
+            string versionNum = "v1.0.0";
             Console.Write("Enter your name: ");
             string fname = Console.ReadLine();
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Calculator! \nVersion: " + versionNum);
