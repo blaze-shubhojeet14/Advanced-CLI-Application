@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace CoolCalculator
 {
@@ -50,34 +51,29 @@ namespace CoolCalculator
                     Console.Write("Enter an Operator: ");
                     string op = Console.ReadLine();
 
-                    if (op == "+")
+                    switch (op)
                     {
-                        Console.WriteLine(num1 + num2);
-                    }
-                    else if (op == "-")
-                    {
-                        Console.WriteLine(num1 - num2);
-                    }
-                    else if (op == "/")
-                    {
-                        Console.WriteLine("Quotient is " + num1 / num2);
-                    }
-                    else if (op == "*")
-                    {
-                        Console.WriteLine("Product is " + num1 * num2);
-                    }
-                    else if (op == "%")
-                    {
-                        Console.WriteLine("Modulus is " + num1 % num2);
-                    }
-                    else if (op == "Switch")
-                    {
-                        goto Method;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid Operator, pls enter a valid operator!");
+                        case "+":
+                            Console.WriteLine(num1 + num2);
+                            break;
+                        case "-":
+                            Console.WriteLine(num1 - num2);
+                            break;
+                        case "/":
+                            Console.WriteLine("Quotient is " + num1 / num2);
+                            break;
+                        case "*":
+                            Console.WriteLine("Product is " + num1 * num2);
+                            break;
+                        case "%":
+                            Console.WriteLine("Modulus is " + num1 % num2);
+                            break;
+                        case "Switch":
+                            goto Method;
+                        default:
+                            Console.WriteLine("Invalid Operator, pls enter a valid operator!");
 
+                            break;
                     }
                 }
                 catch
