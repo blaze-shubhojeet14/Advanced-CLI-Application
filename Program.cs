@@ -20,7 +20,7 @@ namespace CoolCalculator
 
             Application:
             string applicationIn;
-            Console.Write("Available Applications: Calculator | GuessingGame | Clock \nEnter your application: ");
+            Console.Write("Available Applications: Calculator | GuessingGame | Clock | Terminate CLI (exit) \nEnter your application: ");
             applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -36,6 +36,9 @@ namespace CoolCalculator
                 case "Clock":
                     Console.WriteLine("This module is currently under development");
                     goto Application;
+                    break;
+                case "exit":
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("Pls enter a valid application!");
@@ -109,7 +112,10 @@ namespace CoolCalculator
             {
                 Console.WriteLine("This module in under development, pls use the Advanced Method till then!");
                 goto Method;
-
+            }
+            if (methodType == "RMM")
+            {
+                goto Application;
             }
 
         }
