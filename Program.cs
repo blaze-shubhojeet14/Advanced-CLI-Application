@@ -20,7 +20,7 @@ namespace CoolCalculator
 
             Application:
             string applicationIn;
-            Console.Write("Available Applications: Calculator | GuessingGame | Clock | Terminate CLI (exit) \nEnter your application: ");
+            Console.Write("Available Applications: Calculator | GuessingGame | Clock | Terminate CLI (exit) \nChoose your desired application: ");
             applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -101,10 +101,12 @@ namespace CoolCalculator
                             break;
                     }
                 }
-                catch
+                catch /*(Exception e)*/
                 {
                     Console.WriteLine("Unexpected Error, pls try again!");
+                    //Console.WriteLine(e.Message);
                 }
+
                 goto Begin;
             }
 
