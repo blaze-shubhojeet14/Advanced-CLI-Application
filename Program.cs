@@ -8,7 +8,7 @@ namespace CoolCalculator
 
         static void Main(string[] args)
         {
-            string versionNum = "v1.0.2";
+            string versionNum = "v1.0.4";
             Console.Write("Enter your name: ");
             string fname = Console.ReadLine();
 
@@ -16,26 +16,49 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Calculator! \nVersion: " + versionNum);
+            Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
 
-        //Console.Write("Current Date and Time is : ");
-        //DateTime now = DateTime.Now;
-        //Console.WriteLine(now);
+            Application:
+            string applicationIn;
+            Console.Write("Available Applications: Calculator | GuessingGame | Clock \nEnter your application: ");
+            applicationIn = Console.ReadLine();
+
+            switch (applicationIn)
+            {
+
+                case "Calculator":
+                    goto Method;
+                    break;
+                case "GuessingGame":
+                    Console.WriteLine("This module is currently under development");
+                    goto Application;
+                    break;
+                case "Clock":
+                    Console.WriteLine("This module is currently under development");
+                    goto Application;
+                    break;
+                default:
+                    Console.WriteLine("Pls enter a valid application!");
+                    goto Application;
+                    break;
+            }
+            
+            //Calculator Modules
         Method:
             string methodType;
-            Console.WriteLine("Available Methods: Basic | Advanced");
+            Console.WriteLine("\nAvailable Methods: Basic | Advanced | Return to Main Menu (RMM) (By Default Advanced method is selected) ");
             Console.Write("Choose a method: ");
             methodType = Console.ReadLine();
+
             if (methodType == "")
             {
-                Console.WriteLine("Pls enter a valid method!");
-                goto Method;
+                methodType = "Advanced";
             }
-
 
             if (methodType == "Advanced") 
             {
-                Console.WriteLine("\nAvailable Operators: \nFor Addition: + \nFor Subtraction: - \nFor Division: / \nFor Multiplication: * \nFor Modulus: % ");
+                Console.WriteLine("\nCurrent Method: Advanced");
+                Console.WriteLine("Available Operators: \nFor Addition: + \nFor Subtraction: - \nFor Division: / \nFor Multiplication: * \nFor Modulus: % ");
                 Console.WriteLine("If you want to switch method then type Switch in operator field!");
             
             Begin:
@@ -72,7 +95,6 @@ namespace CoolCalculator
                             goto Method;
                         default:
                             Console.WriteLine("Invalid Operator, pls enter a valid operator!");
-
                             break;
                     }
                 }
