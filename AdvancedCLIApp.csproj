@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <Company>Blaze Devs</Company>
+    <Product>Advanced CLI Application</Product>
+    <Version>1.6.0</Version>
+    <Authors>Blaze Devs</Authors>
+    <RootNamespace>AdvancedCLIApp</RootNamespace>
+    <AssemblyName>AdvancedCLIApp</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+</Project>

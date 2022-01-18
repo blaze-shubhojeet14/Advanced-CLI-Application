@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CoolCalculator": {
+      "commandName": "Project"
+    },
+    "newProfile1": {
+      "commandName": "Executable"
+    }
+  }
+}
