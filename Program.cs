@@ -65,7 +65,6 @@ namespace CoolCalculator
                     var iterations = DateTime.DaysInMonth(month.Year, month.Month) + padLeftDays;
                     for (int j = 0; j < iterations; j++)
                     {
-                        // Pad the first week with empty spaces if needed
                         if (j < padLeftDays)
                         {
                             Console.Write("   ");
@@ -168,9 +167,11 @@ namespace CoolCalculator
                     switch (op)
                     {
                         case "+":
-                            Console.WriteLine(num1 + num2);
+                            Console.Write("Your answer is ");
+                            Console.Write(num1 + num2);
                             break;
                         case "-":
+                            Console.Write("Your answer is ");
                             Console.WriteLine(num1 - num2);
                             break;
                         case "/":
@@ -203,8 +204,26 @@ namespace CoolCalculator
 
             if (methodType == "Basic")
             {
-                Console.WriteLine("This module in under development, pls use the Advanced Method till then!");
-                goto Method;
+                BasicMth:
+                //Console.WriteLine("This module in under development, pls use the Advanced Method till then!");
+                Console.Write("Choose the function you want to use: ");
+                string funcTion = Console.ReadLine();
+                if (funcTion == "Sqrt")
+                {
+                    Console.Write("Enter your desired number: ");
+                    double sqNum = Convert.ToDouble(Console.ReadLine());
+                    Console.Write("\nThe Squareroot of " + sqNum + " is ");
+                    Console.Write(Math.Sqrt(sqNum));
+                }
+                if (funcTion == "Rnd")
+                {
+                    Console.Write("Enter the number you want to round-off: ");
+                    double rndNum = Convert.ToDouble(Console.ReadLine());
+                    Console.Write("\nRounding-off " + rndNum + " gives ");
+                    Console.Write(Math.Round(rndNum));
+
+                    goto BasicMth;
+                }
             }
             if (methodType == "RMM")
             {
