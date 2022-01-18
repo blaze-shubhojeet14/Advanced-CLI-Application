@@ -43,16 +43,81 @@ namespace CoolCalculator
                     Console.WriteLine("This module is currently under development");
                     break;
                 case "Calendar":
-                    Console.WriteLine("This module is currently under development");
+                    goto Calendar;
                     break;
                 default:
                     Console.WriteLine("Pls enter a valid application!");
                     goto Application;
                     break;
             }
-            
-            //Clock Modules
-            Clock:
+
+            //Calendar Modules
+            Calendar:
+            try
+            {
+                int yearNum;
+                Console.Write("Choose an year: ");
+                yearNum = Convert.ToInt32(Console.ReadLine());
+                for (int i = 1; i < 13; i++)
+                {
+                    var month = new DateTime(yearNum, i, 1);
+          
+                    var headingSpaces = new string(' ', 16 - month.ToString("MMMM").Length);
+                    Console.WriteLine($"{month.ToString("MMMM")}{headingSpaces}{month.Year}");
+                    Console.WriteLine(new string('-', 20));
+                    Console.WriteLine("Su Mo Tu We Th Fr Sa");
+
+                    var padLeftDays = (int)month.DayOfWeek;
+                    var currentDay = month;
+
+                    var iterations = DateTime.DaysInMonth(month.Year, month.Month) + padLeftDays;
+                    for (int j = 0; j < iterations; j++)
+                    {
+                        // Pad the first week with empty spaces if needed
+                        if (j < padLeftDays)
+                        {
+                            Console.Write("   ");
+                        }
+                        else
+                        {
+                            Console.Write($"{currentDay.Day.ToString().PadLeft(2, ' ')} ");
+
+                            if ((j + 1) % 7 == 0)
+                            {
+                                Console.WriteLine();
+                            }
+                            currentDay = currentDay.AddDays(1);
+                        }
+                    }
+                    Console.WriteLine("\n");
+                }
+                Console.WriteLine("\nDone!");
+            CalOpts:
+                string calOpts;
+                Console.Write("\nAvailable Options: Select a Different Year (edit) | Return to Main Menu(RMM) | Terminate CLI (exit)\nChoose your input: ");
+                calOpts = Console.ReadLine();
+                switch (calOpts)
+                {
+                    case "edit":
+                        goto Calendar;
+                    case "RMM":
+                        goto Application;
+                    case "exit":
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Pls enter a valid Input");
+                        goto CalOpts;
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Oops something went wrong!");
+                goto Calendar;
+            }
+
+        //Clock Modules
+        Clock:
             try
             {
                 Console.Write("\nCurrent Date and Time is : ");
