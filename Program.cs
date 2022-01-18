@@ -8,7 +8,7 @@ namespace CoolCalculator
 
         static void Main(string[] args)
         {
-            string versionNum = "v1.0.5";
+            string versionNum = "v1.0.6";
             Console.Write("Enter your name: ");
             string fname = Console.ReadLine();
 
