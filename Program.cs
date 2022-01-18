@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace CoolCalculator
 {
@@ -8,7 +7,6 @@ namespace CoolCalculator
 
         static void Main(string[] args)
         {
-            string versionNum = "v1.0.6";
             Console.Write("Enter your name: ");
             string fname = Console.ReadLine();
 
@@ -16,48 +14,42 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
+            string versionNum = "v1.0.6";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
 
             Application:
-            string applicationIn;
             Console.Write("Available Applications: Calculator | GuessingGame | Clock | Calendar | Terminate CLI (exit) | Help \nChoose your desired application: ");
-            applicationIn = Console.ReadLine();
+            string applicationIn = Console.ReadLine();
 
             switch (applicationIn)
             {
 
                 case "Calculator":
                     goto Method;
-                    break;
                 case "GuessingGame":
                     Console.WriteLine("This module is currently under development");
                     goto Application;
-                    break;
                 case "Clock":
                     goto Clock;
-                    break;
                 case "exit":
                     Environment.Exit(0);
                     break;
                 case "Help":
                     Console.WriteLine("This module is currently under development");
-                    break;
+                    goto Application;
                 case "Calendar":
                     goto Calendar;
-                    break;
                 default:
                     Console.WriteLine("Pls enter a valid application!");
                     goto Application;
-                    break;
             }
 
             //Calendar Modules
             Calendar:
             try
             {
-                int yearNum;
                 Console.Write("Choose an year: ");
-                yearNum = Convert.ToInt32(Console.ReadLine());
+                int yearNum = Convert.ToInt32(Console.ReadLine());
                 for (int i = 1; i < 13; i++)
                 {
                     var month = new DateTime(yearNum, i, 1);
@@ -93,9 +85,8 @@ namespace CoolCalculator
                 }
                 Console.WriteLine("\nDone!");
             CalOpts:
-                string calOpts;
                 Console.Write("\nAvailable Options: Select a Different Year (edit) | Return to Main Menu(RMM) | Terminate CLI (exit)\nChoose your input: ");
-                calOpts = Console.ReadLine();
+                string calOpts = Console.ReadLine();
                 switch (calOpts)
                 {
                     case "edit":
@@ -124,9 +115,8 @@ namespace CoolCalculator
                 DateTime now = DateTime.Now;
                 Console.WriteLine(now);
 
-                string optionsBtn;
                 Console.Write("\nAvailable Options: Refresh (Ref)/Enter key | Return to Main Menu (RMM) \nChoose an option: ");
-                optionsBtn = Console.ReadLine();
+                string optionsBtn = Console.ReadLine();
 
                 switch (optionsBtn)
                 {
@@ -146,10 +136,9 @@ namespace CoolCalculator
 
         //Calculator Modules
         Method:
-            string methodType;
             Console.WriteLine("\nAvailable Methods: Basic | Advanced | Return to Main Menu (RMM) (By Default Advanced method is selected) ");
             Console.Write("Choose a method: ");
-            methodType = Console.ReadLine();
+            string methodType = Console.ReadLine();
 
             if (methodType == "")
             {
@@ -161,6 +150,7 @@ namespace CoolCalculator
                 Console.WriteLine("\nCurrent Method: Advanced");
                 Console.WriteLine("Available Operators: \nFor Addition: + \nFor Subtraction: - \nFor Division: / \nFor Multiplication: * \nFor Modulus: % ");
                 Console.WriteLine("If you want to switch method then type Switch in operator field!");
+                Console.WriteLine("To Terminate CLI, type exit in operator field!");
             
             Begin:
 
@@ -194,6 +184,9 @@ namespace CoolCalculator
                             break;
                         case "Switch":
                             goto Method;
+                        case "exit":
+                            Environment.Exit(0);
+                            break;
                         default:
                             Console.WriteLine("Invalid Operator, pls enter a valid operator!");
                             break;
