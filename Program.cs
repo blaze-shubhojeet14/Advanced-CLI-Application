@@ -14,7 +14,7 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.0.8";
+            string versionNum = "v1.1.0";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
 
             Application:
@@ -133,160 +133,199 @@ namespace CoolCalculator
             }
 
 
-        //Calculator Modules
-        Methods:
-            Console.WriteLine("\nAvailable Methods: Basic | Arithmetic (Athm) | Return to Main Menu (RMM) (By Default Arithmetic method is selected) ");
-            Console.Write("Choose a method: ");
-            string methodType = Console.ReadLine();
+         //Calculator Modules
+         Methods:
 
-            if (methodType == "")
-            {
-                methodType = "Athm";
-            }
-
-            else if (methodType == "Athm") 
-            {
-                Console.WriteLine("\nCurrent Method: Arithmetic");
-                Console.WriteLine("Available Operators: \nFor Addition: + \nFor Subtraction: - \nFor Division: # \nFor Division with Remainder: / \nFor Multiplication: * \nFor Modulus: % ");
-                Console.WriteLine("If you want to switch method then type Switch in operation field!");
-                Console.WriteLine("To Terminate CLI, type exit in operation field!");
-            
-            Begin:
-
-                try
+                Console.WriteLine("\nAvailable Methods: Scientific (S) | Arithmetic (A) | Return to Main Menu (RMM) | Terminate CLI (exit) ");
+                Console.Write("Choose a method: ");
+                string methodType = Console.ReadLine();
+            try
+            { 
+                switch (methodType)
                 {
-                    Console.Write("\nChoose your operation: ");
-                    string operationIn = Console.ReadLine();
-                    switch (operationIn)
-                    {
-                        case "/":
-                            {
-                                Console.Write("Enter the dividend: ");
-                                int dividendNum = Convert.ToInt32(Console.ReadLine());
-                                Console.Write("Enter the divisor: ");
-                                int divisorNum = Convert.ToInt32(Console.ReadLine());
-                                int remainNum;
-                                int quotientNum = Math.DivRem(dividendNum, divisorNum, out remainNum);
-                                Console.WriteLine("\nQuotient is " + quotientNum);
-                                Console.WriteLine("Remainder is " + remainNum);
-                                break;
-                            }
-
-                        case "*":
-                            {
-                                Console.Write("Enter a number to multiply: ");
-                                double mulNum1 = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("Enter another number to multiply: ");
-                                double mulNum2 = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("Product is " + mulNum1 * mulNum2);
-                                break;
-                            }
-
-                        case "%":
-                            {
-                                Console.Write("Enter first number: ");
-                                double modNum1 = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("Enter second number: ");
-                                double modNum2 = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("Modulus is " + modNum1 % modNum2);
-                                break;
-                            }
-
-                        case "-":
-                            {
-                                Console.Write("Enter first number: ");
-                                double subNum1 = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("Enter second number: ");
-                                double subNum2 = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("Answer is ");
-                                Console.Write(subNum1 - subNum2);
-                                break;
-                            }
-
-                        case "+":
-                            {
-                                Console.Write("Enter first number: ");
-                                double addNum1 = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("Enter second number: ");
-                                double addNum2 = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("Answer is ");
-                                Console.Write(addNum1 + addNum2);
-                                break;
-                            }
-                        case "#":
-                            {
-                                Console.Write("Enter the dividend: ");
-                                double dividendNum = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("Enter the divisor: ");
-                                double divisorNum = Convert.ToDouble(Console.ReadLine());                               
-                                Console.WriteLine("\nQuotient is " + dividendNum / divisorNum);
-                                break;
-                            }
-
-                        case "Switch":
+                    default:
+                        {
+                            Console.WriteLine("Pls choose a valid method");
                             goto Methods;
+                        }
+                    case "":
+                        {
+                            Console.WriteLine("Pls choose a valid method");
+                            goto Methods;
+                        }
+                    case "A":
+                        {
+                            Console.WriteLine("\nCurrent Method: Arithmetic");
+                            Console.WriteLine("Available Operators: \nFor Addition: + \nFor Subtraction: - \nFor Division: # \nFor Division with Remainder: / \nFor Multiplication: * \nFor Modulus: % ");
+                            Console.WriteLine("If you want to switch method then type Swh in operation field!");
+                            Console.WriteLine("To Terminate CLI, type exit in operation field!");
 
-                        case "exit":
-                            Environment.Exit(0);
-                            break;                
-                        case "":
-                            Console.WriteLine("Invalid Operator, pls enter a valid operator!");
+                            Begin:
+                            Console.Write("\nChoose your operation: ");
+                            string operationIn = Console.ReadLine();
+                            switch (operationIn)
+                            {
+                                case "/":
+                                    {
+                                        Console.Write("Enter the dividend: ");
+                                        int dividendNum = Convert.ToInt32(Console.ReadLine());
+                                        Console.Write("Enter the divisor: ");
+                                        int divisorNum = Convert.ToInt32(Console.ReadLine());
+                                        int remainNum;
+                                        int quotientNum = Math.DivRem(dividendNum, divisorNum, out remainNum);
+                                        Console.WriteLine("\nQuotient is " + quotientNum);
+                                        Console.WriteLine("Remainder is " + remainNum);
+                                        break;
+                                    }
+
+                                case "*":
+                                    {
+                                        Console.Write("Enter a number to multiply: ");
+                                        double mulNum1 = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Enter another number to multiply: ");
+                                        double mulNum2 = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Product is " + mulNum1 * mulNum2);
+                                        break;
+                                    }
+
+                                case "%":
+                                    {
+                                        Console.Write("Enter first number: ");
+                                        double modNum1 = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Enter second number: ");
+                                        double modNum2 = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Modulus is " + modNum1 % modNum2);
+                                        break;
+                                    }
+
+                                case "-":
+                                    {
+                                        Console.Write("Enter first number: ");
+                                        double subNum1 = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Enter second number: ");
+                                        double subNum2 = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Answer is ");
+                                        Console.Write(subNum1 - subNum2);
+                                        break;
+                                    }
+
+                                case "+":
+                                    {
+                                        Console.Write("Enter first number: ");
+                                        double addNum1 = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Enter second number: ");
+                                        double addNum2 = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Answer is ");
+                                        Console.Write(addNum1 + addNum2);
+                                        break;
+                                    }
+                                case "#":
+                                    {
+                                        Console.Write("Enter the dividend: ");
+                                        double dividendNum = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Enter the divisor: ");
+                                        double divisorNum = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("\nQuotient is " + dividendNum / divisorNum);
+                                        break;
+                                    }
+
+                                case "Swh":
+                                    goto Methods;
+
+                                case "exit":
+                                    Environment.Exit(0);
+                                    break;
+                                case "":
+                                    Console.WriteLine("Invalid Operator, pls enter a valid operator!");
+                                    break;
+                                default:
+                                    Console.WriteLine("Invalid Operator, pls enter a valid operator!");
+                                    break;
+                            }
+                            goto Begin;
+                        }
+
+                    case "S":
+                        {
+                        BasicMthTxt:
+                            //Console.WriteLine("This module in under development, pls use the Advanced Method till then!");
+                            Console.WriteLine("\n\nAvailable Functions: \nSquareroot (S)\nRounding-off (R)\nCuberoot (C)\nChecking Prime Numbers (P)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
+                        function:
+                            Console.Write("\nChoose the function you want to use: ");
+                            string funcTion = Console.ReadLine();
+                            switch (funcTion)
+                            {
+                                case "S":
+                                    {
+                                        Console.Write("Enter your desired number: ");
+                                        double sqNum = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("\nSquareroot of " + sqNum + " is ");
+                                        Console.Write(Math.Sqrt(sqNum));
+                                        goto function;
+                                    }
+
+                                case "R":
+                                    {
+                                        Console.Write("Enter the number you want to round-off: ");
+                                        double rndNum = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("\nRounding-off " + rndNum + " gives ");
+                                        Console.Write(Math.Round(rndNum));
+                                        goto function;
+                                    }
+
+                                case "C":
+                                    {
+                                        Console.Write("Enter your desired number: ");
+                                        double cbNum = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("\nCuberoot of " + cbNum + " is ");
+                                        Console.Write(Math.Cbrt(cbNum));
+                                        goto function;
+                                    }
+                                case "P":
+                                    int n, i, m = 0, flag = 0;
+                                    Console.Write("Enter the Number to check Prime: ");
+                                    n = int.Parse(Console.ReadLine());
+                                    m = n / 2;
+                                    for (i = 2; i <= m; i++)
+                                    {
+                                        if (n % i == 0)
+                                        {
+                                            Console.Write("Number is not Prime.");
+                                            flag = 1;
+                                            goto function;
+                                        }
+                                    }
+                                    if (flag == 0)
+                                    {
+                                        Console.Write("Number is Prime.");
+                                        goto function;
+                                    }
+                                    break;
+                                case "L":
+                                    goto BasicMthTxt;
+                                case "W":
+                                    goto Methods;
+                                case "T":
+                                    Environment.Exit(0);
+                                    break;
+                                default:
+                                    Console.WriteLine("Pls enter a valid function!");
+                                    goto function;
+                            }
                             break;
-                        default:
-                            Console.WriteLine("Invalid Operator, pls enter a valid operator!");
-                            break;
-                    }
-                }                
-                catch /*(Exception e)*/
-                {
-                    Console.WriteLine("Unexpected Error, pls try again!");
-                    //Console.WriteLine(e.Message);
-                }
-
-                goto Begin;
-            }
-
-            else if (methodType == "Basic")
-            {
-                BasicMth:
-                //Console.WriteLine("This module in under development, pls use the Advanced Method till then!");
-                Console.Write("Choose the function you want to use: ");
-                string funcTion = Console.ReadLine();
-                switch (funcTion)
-                {
-                    case "Sqrt":
-                        {
-                            Console.Write("Enter your desired number: ");
-                            double sqNum = Convert.ToDouble(Console.ReadLine());
-                            Console.Write("\nSquareroot of " + sqNum + " is ");
-                            Console.Write(Math.Sqrt(sqNum));
-                            goto BasicMth;
                         }
 
-                    case "Rnd":
-                        {
-                            Console.Write("Enter the number you want to round-off: ");
-                            double rndNum = Convert.ToDouble(Console.ReadLine());
-                            Console.Write("\nRounding-off " + rndNum + " gives ");
-                            Console.Write(Math.Round(rndNum));
-                            goto BasicMth;
-                        }
-
-                    case "Cbrt":
-                        {
-                            Console.Write("Enter your desired number: ");
-                            double cbNum = Convert.ToDouble(Console.ReadLine());
-                            Console.Write("\nCuberoot of " + cbNum + " is ");
-                            Console.Write(Math.Cbrt(cbNum));
-                            goto BasicMth;
-                        }
+                    case "RMM":
+                        goto Application;
+                    case "exit":
+                        Environment.Exit(0);
+                        break;
                 }
             }
-            else if (methodType == "RMM")
+            catch
             {
-                goto Application;
+                Console.WriteLine("Unexpected Error, pls try again!");
             }
-
         }
     }
 }
