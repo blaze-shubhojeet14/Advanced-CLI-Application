@@ -3,11 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <NoWin32Manifest>true</NoWin32Manifest>
     <Company>Blaze Devs</Company>
     <Product>Advanced CLI Application</Product>
-    <Version>1.0.8</Version>
+    <Version>1.1.0</Version>
     <Authors>Blaze Devs</Authors>
     <RootNamespace>AdvancedCLIApp</RootNamespace>
     <AssemblyName>AdvancedCLIApp</AssemblyName>
