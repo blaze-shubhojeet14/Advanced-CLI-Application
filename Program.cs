@@ -14,31 +14,31 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.1.0";
+            string versionNum = "v1.1.1";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
 
             Application:
-            Console.Write("Available Applications: Calculator | GuessingGame | Clock | Calendar | Terminate CLI (exit) | Help \nChoose your desired application: ");
+            Console.Write("Available Applications: Calculator (A) | GuessingGame (B) | Clock (C) | Calendar (D) | Terminate CLI (E) | Help (0)\nChoose your desired application: ");
             string applicationIn = Console.ReadLine();
 
             switch (applicationIn)
             {
 
-                case "Calculator":
+                case "A":
                     goto Methods;
-                case "GuessingGame":
+                case "B":
                     Console.WriteLine("This module is currently under development");
                     goto Application;
-                case "Clock":
+                case "C":
                     goto Clock;
-                case "exit":
+                case "D":
+                    goto Calendar;
+                case "E":
                     Environment.Exit(0);
                     break;
-                case "Help":
+                case "0":
                     Console.WriteLine("This module is currently under development");
                     goto Application;
-                case "Calendar":
-                    goto Calendar;
                 default:
                     Console.WriteLine("Pls enter a valid application!");
                     goto Application;
@@ -139,8 +139,6 @@ namespace CoolCalculator
                 Console.WriteLine("\nAvailable Methods: Scientific (S) | Arithmetic (A) | Return to Main Menu (RMM) | Terminate CLI (exit) ");
                 Console.Write("Choose a method: ");
                 string methodType = Console.ReadLine();
-            try
-            { 
                 switch (methodType)
                 {
                     default:
@@ -163,18 +161,36 @@ namespace CoolCalculator
                             Begin:
                             Console.Write("\nChoose your operation: ");
                             string operationIn = Console.ReadLine();
+                        try
+                        {
                             switch (operationIn)
                             {
                                 case "/":
                                     {
-                                        Console.Write("Enter the dividend: ");
-                                        int dividendNum = Convert.ToInt32(Console.ReadLine());
-                                        Console.Write("Enter the divisor: ");
-                                        int divisorNum = Convert.ToInt32(Console.ReadLine());
-                                        int remainNum;
-                                        int quotientNum = Math.DivRem(dividendNum, divisorNum, out remainNum);
-                                        Console.WriteLine("\nQuotient is " + quotientNum);
-                                        Console.WriteLine("Remainder is " + remainNum);
+                                        try
+                                        {
+                                            Console.Write("Enter the dividend: ");
+                                            int dividendNum = Convert.ToInt32(Console.ReadLine());
+                                            Console.Write("Enter the divisor: ");
+                                            int divisorNum = Convert.ToInt32(Console.ReadLine());
+                                            int remainNum;
+                                            int quotientNum = Math.DivRem(dividendNum, divisorNum, out remainNum);
+                                            Console.WriteLine("\nQuotient is " + quotientNum);
+                                            Console.WriteLine("Remainder is " + remainNum);
+                                            break;
+                                        }
+                                        catch (FormatException ex)
+                                        {
+                                            Console.WriteLine("Input string was not in a correct format.");
+                                        }
+                                        catch (InvalidOperationException ex)
+                                        {
+                                            Console.WriteLine("Not a valid numbers to perform operation");
+                                        }
+                                        catch (DivideByZeroException ex)
+                                        {
+                                            Console.WriteLine("Cannot Divide By Zero as it gives answer as infinity");
+                                        }
                                         break;
                                     }
 
@@ -244,7 +260,14 @@ namespace CoolCalculator
                             }
                             goto Begin;
                         }
+                        catch
+                        {
+                            Console.WriteLine("Unexpected Error, pls try again");
+                            goto Begin;
+                        }
 
+                        }
+ 
                     case "S":
                         {
                         BasicMthTxt:
@@ -253,64 +276,72 @@ namespace CoolCalculator
                         function:
                             Console.Write("\nChoose the function you want to use: ");
                             string funcTion = Console.ReadLine();
-                            switch (funcTion)
+                            try
                             {
-                                case "S":
-                                    {
-                                        Console.Write("Enter your desired number: ");
-                                        double sqNum = Convert.ToDouble(Console.ReadLine());
-                                        Console.Write("\nSquareroot of " + sqNum + " is ");
-                                        Console.Write(Math.Sqrt(sqNum));
-                                        goto function;
-                                    }
-
-                                case "R":
-                                    {
-                                        Console.Write("Enter the number you want to round-off: ");
-                                        double rndNum = Convert.ToDouble(Console.ReadLine());
-                                        Console.Write("\nRounding-off " + rndNum + " gives ");
-                                        Console.Write(Math.Round(rndNum));
-                                        goto function;
-                                    }
-
-                                case "C":
-                                    {
-                                        Console.Write("Enter your desired number: ");
-                                        double cbNum = Convert.ToDouble(Console.ReadLine());
-                                        Console.Write("\nCuberoot of " + cbNum + " is ");
-                                        Console.Write(Math.Cbrt(cbNum));
-                                        goto function;
-                                    }
-                                case "P":
-                                    int n, i, m = 0, flag = 0;
-                                    Console.Write("Enter the Number to check Prime: ");
-                                    n = int.Parse(Console.ReadLine());
-                                    m = n / 2;
-                                    for (i = 2; i <= m; i++)
-                                    {
-                                        if (n % i == 0)
+                                switch (funcTion)
+                                {
+                                    case "S":
                                         {
-                                            Console.Write("Number is not Prime.");
-                                            flag = 1;
+                                            Console.Write("Enter your desired number: ");
+                                            double sqNum = Convert.ToDouble(Console.ReadLine());
+                                            Console.Write("\nSquareroot of " + sqNum + " is ");
+                                            Console.Write(Math.Sqrt(sqNum));
                                             goto function;
                                         }
-                                    }
-                                    if (flag == 0)
-                                    {
-                                        Console.Write("Number is Prime.");
+
+                                    case "R":
+                                        {
+                                            Console.Write("Enter the number you want to round-off: ");
+                                            double rndNum = Convert.ToDouble(Console.ReadLine());
+                                            Console.Write("\nRounding-off " + rndNum + " gives ");
+                                            Console.Write(Math.Round(rndNum));
+                                            goto function;
+                                        }
+
+                                    case "C":
+                                        {
+                                            Console.Write("Enter your desired number: ");
+                                            double cbNum = Convert.ToDouble(Console.ReadLine());
+                                            Console.Write("\nCuberoot of " + cbNum + " is ");
+                                            Console.Write(Math.Cbrt(cbNum));
+                                            goto function;
+                                        }
+                                    case "P":
+                                        int n, i, m = 0, flag = 0;
+                                        Console.Write("Enter the Number to check Prime: ");
+                                        n = int.Parse(Console.ReadLine());
+                                        m = n / 2;
+                                        for (i = 2; i <= m; i++)
+                                        {
+                                            if (n % i == 0)
+                                            {
+                                                Console.Write("Number is not Prime.");
+                                                flag = 1;
+                                                goto function;
+                                            }
+                                        }
+                                        if (flag == 0)
+                                        {
+                                            Console.Write("Number is Prime.");
+                                            goto function;
+                                        }
+                                        break;
+                                    case "L":
+                                        goto BasicMthTxt;
+                                    case "W":
+                                        goto Methods;
+                                    case "T":
+                                        Environment.Exit(0);
+                                        break;
+                                    default:
+                                        Console.WriteLine("Pls enter a valid function!");
                                         goto function;
-                                    }
-                                    break;
-                                case "L":
-                                    goto BasicMthTxt;
-                                case "W":
-                                    goto Methods;
-                                case "T":
-                                    Environment.Exit(0);
-                                    break;
-                                default:
-                                    Console.WriteLine("Pls enter a valid function!");
-                                    goto function;
+                                }
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Unexpected Error, pls try again!");
+                                goto function;
                             }
                             break;
                         }
@@ -321,11 +352,6 @@ namespace CoolCalculator
                         Environment.Exit(0);
                         break;
                 }
-            }
-            catch
-            {
-                Console.WriteLine("Unexpected Error, pls try again!");
-            }
         }
     }
 }
