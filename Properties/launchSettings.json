@@ -1,7 +1,8 @@
 {
   "profiles": {
     "CoolCalculator": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "remoteDebugEnabled": false
     },
     "newProfile1": {
       "commandName": "Executable"
