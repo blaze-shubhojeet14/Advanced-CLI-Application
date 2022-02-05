@@ -326,15 +326,18 @@ namespace CoolCalculator
                                             goto function;
                                         }
                                         break;
+
                                     case "E":
-                                    Console.Write("Enter base number: ");
-                                    double base_num = Convert.ToDouble(Console.ReadLine());
-                                    Console.Write("Enter power/exponent: ");
-                                    double pow_num = Convert.ToDouble(Console.ReadLine());
-                                    double result = Math.Pow(base_num, pow_num);
-                                    Console.WriteLine("The answer is " + result);
-                                    goto function;
-                                case "L":
+                                    {
+                                        Console.Write("Enter base number: ");
+                                        double base_num = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Enter power/exponent: ");
+                                        double pow_num = Convert.ToDouble(Console.ReadLine());
+                                        double result = Math.Pow(base_num, pow_num);
+                                        Console.WriteLine("The answer is " + result);
+                                        goto function;
+                                    }
+                                    case "L":
                                         goto BasicMthTxt;
                                     case "W":
                                         goto Methods;
