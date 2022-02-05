@@ -14,7 +14,7 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.1.1";
+            string versionNum = "v1.1.2";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
 
             Application:
@@ -272,7 +272,7 @@ namespace CoolCalculator
                         {
                         BasicMthTxt:
                             //Console.WriteLine("This module in under development, pls use the Advanced Method till then!");
-                            Console.WriteLine("\n\nAvailable Functions: \nSquareroot (S)\nRounding-off (R)\nCuberoot (C)\nChecking Prime Numbers (P)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
+                            Console.WriteLine("\n\nAvailable Functions: \nSquareroot (S)\nRounding-off (R)\nCuberoot (C)\nChecking Prime Numbers (P)\nExponents (E)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
                         function:
                             Console.Write("\nChoose the function you want to use: ");
                             string funcTion = Console.ReadLine();
@@ -326,7 +326,15 @@ namespace CoolCalculator
                                             goto function;
                                         }
                                         break;
-                                    case "L":
+                                    case "E":
+                                    Console.Write("Enter base number: ");
+                                    double base_num = Convert.ToDouble(Console.ReadLine());
+                                    Console.Write("Enter power/exponent: ");
+                                    double pow_num = Convert.ToDouble(Console.ReadLine());
+                                    double result = Math.Pow(base_num, pow_num);
+                                    Console.WriteLine("The answer is " + result);
+                                    goto function;
+                                case "L":
                                         goto BasicMthTxt;
                                     case "W":
                                         goto Methods;
