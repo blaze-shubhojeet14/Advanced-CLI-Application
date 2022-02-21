@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
 
 namespace CoolCalculator
 {
@@ -14,11 +16,11 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.1.2";
+            string versionNum = "v1.1.5";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
 
             Application:
-            Console.Write("Available Applications: Calculator (A) | GuessingGame (B) | Clock (C) | Calendar (D) | Terminate CLI (E) | Help (0)\nChoose your desired application: ");
+            Console.Write("Available Applications: Calculator (A) | GuessingGame (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nTerminate CLI (F) | Help (0)\nChoose your desired application: ");
             string applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -34,6 +36,8 @@ namespace CoolCalculator
                 case "D":
                     goto Calendar;
                 case "E":
+                    goto SearchModule;
+                case "F":
                     Environment.Exit(0);
                     break;
                 case "0":
@@ -44,8 +48,70 @@ namespace CoolCalculator
                     goto Application;
             }
 
-            //Calendar Modules
-            Calendar:
+        //Search Modules
+         SearchModule:
+            Console.WriteLine("Available Options & Search Engines:- \nGoogle (G)\nBing (B)\nYahoo (Y)\nDuckDuckGo (D)\nAsk (A)\nAol (AO)\nWikipedia (W)\nReturn To Main Menu (RMM)\nTerminate CLI (T)");
+         FunctionsS:
+            Console.Write("Choose your search engine: ");
+            string searche = Console.ReadLine();
+            Console.Write("Enter your query:");
+            string query = Console.ReadLine();
+            switch (searche)
+            {
+                case "G":
+                    Process procG = new Process();
+                    procG.StartInfo.UseShellExecute = true;
+                    procG.StartInfo.FileName = "https://google.com/search?q=" + query;
+                    procG.Start();
+                    goto FunctionsS;
+                case "B":
+                    Process procB = new Process();
+                    procB.StartInfo.UseShellExecute = true;
+                    procB.StartInfo.FileName = "https://www.bing.com/search?q=" + query;
+                    procB.Start();
+                    goto FunctionsS;
+                case "Y":
+                    Process procY = new Process();
+                    procY.StartInfo.UseShellExecute = true;
+                    procY.StartInfo.FileName = "https://search.yahoo.com/search?q=" + query;
+                    procY.Start();
+                    goto FunctionsS;
+                case "D":
+                    Process procD = new Process();
+                    procD.StartInfo.UseShellExecute = true;
+                    procD.StartInfo.FileName = "https://duckduckgo.com/?q=" + query;
+                    procD.Start();
+                    goto FunctionsS;
+                case "A":
+                    Process procA = new Process();
+                    procA.StartInfo.UseShellExecute = true;
+                    procA.StartInfo.FileName = "https://www.ask.com/web?q=" + query;
+                    procA.Start();
+                    goto FunctionsS;
+                case "AO":
+                    Process procAO = new Process();
+                    procAO.StartInfo.UseShellExecute = true;
+                    procAO.StartInfo.FileName = "https://search.aol.com/search?q=" + query;
+                    procAO.Start();
+                    goto FunctionsS;
+                case "W":
+                    Process procW = new Process();
+                    procW.StartInfo.UseShellExecute = true;
+                    procW.StartInfo.FileName = "https://en.wikipedia.org/w/?search=" + query;
+                    procW.Start();
+                    goto FunctionsS;
+                case "RMM":
+                    goto Application;
+                case "T":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Pls enter a valid search engine!");
+                    goto FunctionsS;
+            }
+
+        //Calendar Modules
+        Calendar:
             try
             {
                 Console.Write("Choose an year: ");
