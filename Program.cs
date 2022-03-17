@@ -27,7 +27,7 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.3 calculating area of.0";
+            string versionNum = "v1.3.0";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
 
             Application:
