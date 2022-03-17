@@ -27,7 +27,7 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.2.0";
+            string versionNum = "v1.3 calculating area of.0";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
 
             Application:
@@ -349,7 +349,7 @@ namespace CoolCalculator
                         {
                         BasicMthTxt:
                             //Console.WriteLine("This module in under development, pls use the Advanced Method till then!");
-                            Console.WriteLine("\n\nAvailable Functions: \nSquareroot (S)\nRounding-off (R)\nCuberoot (C)\nChecking Prime Numbers (P)\nPermutations (PE)\nExponents (E)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
+                            Console.WriteLine("\n\nAvailable Functions: \nSquareroot (S)\nRounding-off (R)\nCuberoot (C)\nChecking Prime Numbers (P)\nTemperature Conversions (TC)\nPermutations (PE)\nExponents (E)\nArea of a rectangle (A)\nVolume of a circle (V)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
                         function:
                             Console.Write("\nChoose the function you want to use: ");
                             string funcTion = Console.ReadLine();
@@ -424,6 +424,59 @@ namespace CoolCalculator
                                         generatePermutation(str, 0, len);
                                         goto function;
                                     }
+                                case "A":
+                                    {
+                                        Console.Write("Enter the width of the rectangle: ");
+                                        double width = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("Enter the height of the rectangle: ");
+                                        double height = Convert.ToDouble(Console.ReadLine());
+                                        double answer = width * height;
+                                        Console.WriteLine("Area of the rectangle: " + answer);
+                                        goto function;
+                                    }
+                                case "V":
+                                    {
+                                        Console.Write("Enter the radius of the circle: ");
+                                        double radius = Convert.ToDouble(Console.ReadLine());
+                                        double pi = 3.14285714286;
+                                        double volume = (4.0 / 3.0) * pi * (radius * radius * radius);
+                                        Console.WriteLine("Volume of the circle: " + volume);
+                                        goto function;
+                                    }
+                                case "TC":
+                                    {
+                                    TempConvertor:
+                                        try
+                                        {
+                                            Console.Write("\nAvailable Conversions:-\nFahrenheit To Celsius (FC)\nCelsius to Fahrenheit (CF)\nReturn To Main Menu (RMM)\n\nChoose your desired conversion: ");
+                                            string TempConver = Console.ReadLine();
+                                            switch (TempConver)
+                                            {
+                                                case "CF":
+                                                    Console.Write("Enter the Celsius Temperature: ");
+                                                    double cTemp = Convert.ToDouble(Console.ReadLine());
+                                                    double fTemp = ((cTemp * 9) / 5) + 32;
+                                                    Console.WriteLine("Temperature in Fahrenheit: " + fTemp);
+                                                    goto TempConvertor;
+                                                case "FC":
+                                                    Console.Write("Enter the Fahrenheit Temperature: ");
+                                                    double fTemp1 = Convert.ToDouble(Console.ReadLine());
+                                                    double cTemp1 = (fTemp1 - 32) * 5 / 9;
+                                                    Console.WriteLine("Temperature in Celsius: " + cTemp1);
+                                                    goto TempConvertor;
+                                                case "RMM":
+                                                    goto function;
+                                                default:
+                                                    Console.WriteLine("Pls enter a valid conversion!");
+                                                    goto TempConvertor;
+                                            }
+                                        }
+                                        catch (FormatException)
+                                        {
+                                            Console.WriteLine("Pls enter a valid input!");
+                                            goto TempConvertor;
+                                        }
+                                    }                                                               
                                     case "L":
                                         goto BasicMthTxt;
                                     case "W":
