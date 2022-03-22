@@ -1,5 +1,5 @@
 # Advanced-CLI-Application
-An simple-looking but advanced command-line interface application made by Shubhojeet AKA Blaze, an Indian programmer interested in C# and Python and the founder of Blaze Devs.
+An simple-looking but advanced command-line interface application made by **Shubhojeet AKA Blaze**, an Indian programmer interested in C# and Python and the founder of Blaze Devs.
 
 Feel free to give it a try and if you find any issues or bugs in it, make sure to create a issue regarding it and we will fix it by the earliest.
 
