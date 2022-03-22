@@ -5,6 +5,5 @@ Feel free to give it a try and if you find any issues or bugs in it, make sure t
 
 If you want to give us some ideas for new features in it, feel free to mail us about it @ shubhojeetblaze14@gmail.com👀.
 
-Cheers,
-
+Cheers,<br>
 Team Blaze Devs
