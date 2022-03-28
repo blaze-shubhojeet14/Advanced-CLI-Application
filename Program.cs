@@ -40,7 +40,7 @@ namespace CoolCalculator
                 case "A":
                     goto Methods;
                 case "B":
-                    Console.WriteLine("This module is currently under development");
+                    Console.WriteLine("This module is currently under development!");
                     goto Application;
                 case "C":
                     goto Clock;
