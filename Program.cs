@@ -27,11 +27,11 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.4.0";
+            string versionNum = "v1.5.0";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
 
             Application:
-            Console.Write("Available Applications: Calculator (A) | GuessingGame (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nTerminate CLI (F) | Give Feedback (G)| About The Developer (H) | Help (0)\nChoose your desired application: ");
+            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nTerminate CLI (F) | Give Feedback (G)| About The Developer (H)\nChoose your desired application: ");
             string applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -40,8 +40,7 @@ namespace CoolCalculator
                 case "A":
                     goto Methods;
                 case "B":
-                    Console.WriteLine("This module is currently under development!");
-                    goto Application;
+                    goto UnitConversions;
                 case "C":
                     goto Clock;
                 case "D":
@@ -63,16 +62,61 @@ namespace CoolCalculator
                     procAb.StartInfo.FileName = "https://blazedevs.dynu.com/aboutme.html";
                     procAb.Start();
                     goto Application;
-                case "0":
-                    Console.WriteLine("This module is currently under development!");
-                    goto Application;
                 default:
                     Console.WriteLine("Pls enter a valid application!");
                     goto Application;
             }
-
+        //Unit Conversions
+        UnitConversions:
+            Console.WriteLine("Available Conversions:\nTemperature Conversions (TC)\nReturn To Main Menu (RMM)");
+            Console.Write("Choose your desired conversion: ");
+            string UnConvers = Console.ReadLine();
+            switch (UnConvers)
+            {
+                case "TC":
+                    {
+                    TempConvertor:
+                        try
+                        {
+                            Console.Write("\nAvailable Conversions:-\nFahrenheit To Celsius (FC)\nCelsius to Fahrenheit (CF)\nReturn To Main Menu (RMM)\n\nChoose your desired conversion: ");
+                            string TempConver = Console.ReadLine();
+                            switch (TempConver)
+                            {
+                                case "CF":
+                                    Console.Write("Enter the Celsius Temperature: ");
+                                    double cTemp = Convert.ToDouble(Console.ReadLine());
+                                    double fTemp = ((cTemp * 9) / 5) + 32;
+                                    Console.WriteLine("Temperature in Fahrenheit: " + fTemp);
+                                    goto TempConvertor;
+                                case "FC":
+                                    Console.Write("Enter the Fahrenheit Temperature: ");
+                                    double fTemp1 = Convert.ToDouble(Console.ReadLine());
+                                    double cTemp1 = (fTemp1 - 32) * 5 / 9;
+                                    Console.WriteLine("Temperature in Celsius: " + cTemp1);
+                                    goto TempConvertor;
+                                case "RMM":
+                                    goto UnitConversions;
+                                default:
+                                    Console.WriteLine("Pls enter a valid conversion!");
+                                    goto TempConvertor;
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Pls enter a valid input!");
+                            goto TempConvertor;
+                        }
+                    }
+                case "RMM":
+                    {
+                        goto Application;
+                    }
+                default:
+                    Console.WriteLine("Pls enter a valid conversion");
+                    goto UnitConversions;
+            }
         //Search Modules
-         SearchModule:
+        SearchModule:
             Console.WriteLine("Available Options & Search Engines:- \nGoogle (G)\nBing (B)\nYahoo (Y)\nDuckDuckGo (D)\nAsk (A)\nAol (AO)\nWikipedia (W)\nReturn To Main Menu (RMM)\nTerminate CLI (T)");
          FunctionsS:
             Console.Write("Choose your search engine: ");
@@ -361,7 +405,7 @@ namespace CoolCalculator
                         {
                         BasicMthTxt:
                             //Console.WriteLine("This module in under development, pls use the Advanced Method till then!");
-                            Console.WriteLine("\n\nAvailable Functions: \nSquareroot (S)\nRounding-off (R)\nCuberoot (C)\nChecking Prime Numbers (P)\nTemperature Conversions (TC)\nPermutations (PE)\nExponents (E)\nArea of a rectangle (A)\nVolume of a circle (V)\nStrike Rate In Cricket (SR)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
+                            Console.WriteLine("\n\nAvailable Functions: \nSquareroot (S)\nRounding-off (R)\nCuberoot (C)\nChecking Prime Numbers (P)\nPermutations (PE)\nExponents (E)\nArea of a rectangle (A)\nVolume of a circle (V)\nStrike Rate In Cricket (SR)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
                         function:
                             Console.Write("\nChoose the function you want to use: ");
                             string funcTion = Console.ReadLine();
@@ -454,41 +498,7 @@ namespace CoolCalculator
                                         double volume = (4.0 / 3.0) * pi * (radius * radius * radius);
                                         Console.WriteLine("Volume of the circle: " + volume);
                                         goto function;
-                                    }
-                                case "TC":
-                                    {
-                                    TempConvertor:
-                                        try
-                                        {
-                                            Console.Write("\nAvailable Conversions:-\nFahrenheit To Celsius (FC)\nCelsius to Fahrenheit (CF)\nReturn To Main Menu (RMM)\n\nChoose your desired conversion: ");
-                                            string TempConver = Console.ReadLine();
-                                            switch (TempConver)
-                                            {
-                                                case "CF":
-                                                    Console.Write("Enter the Celsius Temperature: ");
-                                                    double cTemp = Convert.ToDouble(Console.ReadLine());
-                                                    double fTemp = ((cTemp * 9) / 5) + 32;
-                                                    Console.WriteLine("Temperature in Fahrenheit: " + fTemp);
-                                                    goto TempConvertor;
-                                                case "FC":
-                                                    Console.Write("Enter the Fahrenheit Temperature: ");
-                                                    double fTemp1 = Convert.ToDouble(Console.ReadLine());
-                                                    double cTemp1 = (fTemp1 - 32) * 5 / 9;
-                                                    Console.WriteLine("Temperature in Celsius: " + cTemp1);
-                                                    goto TempConvertor;
-                                                case "RMM":
-                                                    goto function;
-                                                default:
-                                                    Console.WriteLine("Pls enter a valid conversion!");
-                                                    goto TempConvertor;
-                                            }
-                                        }
-                                        catch (FormatException)
-                                        {
-                                            Console.WriteLine("Pls enter a valid input!");
-                                            goto TempConvertor;
-                                        }
-                                    }
+                                    }                                   
                                 case "SR":
                                     {
                                         int runs, balls;
