@@ -27,8 +27,9 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.5.0";
-            Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum);
+            string versionNum = "v1.5.5";
+            string theme = "Summer";
+            Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme);
 
             Application:
             Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nTerminate CLI (F) | Give Feedback (G)| About The Developer (H)\nChoose your desired application: ");
