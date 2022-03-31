@@ -11,7 +11,7 @@
     <Authors>Blaze Devs</Authors>
     <RootNamespace>AdvancedCLIApp</RootNamespace>
     <AssemblyName>AdvancedCLIApp</AssemblyName>
-    <ApplicationIcon>icons8_code_file.ico</ApplicationIcon>
+    <ApplicationIcon>AdvancedCLIApp Logo summer.ico</ApplicationIcon>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
     <Copyright>Blaze Devs</Copyright>
