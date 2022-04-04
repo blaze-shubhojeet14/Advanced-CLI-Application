@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Net;
+using System.Linq;
+using System.Web;
+using System.Net.Mail;
+using System.IO;
 
 namespace CoolCalculator
 {
