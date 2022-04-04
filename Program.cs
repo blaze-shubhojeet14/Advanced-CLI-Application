@@ -27,7 +27,7 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.5.5";
+            string versionNum = "v1.6.0";
             string theme = "Summer";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme);
 
@@ -69,7 +69,7 @@ namespace CoolCalculator
             }
         //Unit Conversions
         UnitConversions:
-            Console.WriteLine("Available Conversions:\nTemperature Conversions (TC)\nReturn To Main Menu (RMM)");
+            Console.WriteLine("Available Conversions:\nTemperature Conversions (TC)\nWeight Conversions (WC)\nReturn To Main Menu (RMM)");
             Console.Write("Choose your desired conversion: ");
             string UnConvers = Console.ReadLine();
             switch (UnConvers)
@@ -108,6 +108,46 @@ namespace CoolCalculator
                             goto TempConvertor;
                         }
                     }
+                case "WC":
+                    {
+                    WeghConver:
+                        try
+                        {
+                            Console.WriteLine("\nAvailable Conversions:\nKG To Grams (G)\nGrams To KG (K)\nReturn To Main Menu (RMM)");
+                            Console.Write("Enter your desired conversion: ");
+                            string WeightConver = Console.ReadLine();
+                            switch (WeightConver)
+                            {
+                                case "G":
+                                    {
+                                        Console.Write("Enter weight in grams: ");
+                                        float grams = Convert.ToInt64(Console.ReadLine());
+                                        float kilograms = grams / 1000;
+                                        Console.WriteLine("Weight in kilograms is " + kilograms);
+                                        goto WeghConver;
+                                    }
+                                case "K":
+                                    {
+                                        Console.Write("Enter weight in kilograms: ");
+                                        float kilograms = Convert.ToInt64(Console.ReadLine());
+                                        float grams = kilograms * 1000;
+                                        Console.WriteLine("Weight in grams is " + grams);
+                                        goto WeghConver;
+                                    }
+                                case "RMM":
+                                    goto UnitConversions;
+                                default:
+                                    Console.WriteLine("Pls enter a valid conversion!");
+                                    goto WeghConver;
+                            }
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Unexpected error occurred");
+                            goto WeghConver;
+                        }
+                    }
+                        
                 case "RMM":
                     {
                         goto Application;
