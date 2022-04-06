@@ -37,7 +37,7 @@ namespace CoolCalculator
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme);
 
             Application:
-            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nTerminate CLI (F) | Give Feedback (G)| About The Developer (H)\nChoose your desired application: ");
+            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nTerminate CLI (F) | Give Feedback (G)| About The Developer (H) | Interesting Stuff (J)\nChoose your desired application: ");
             string applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -67,6 +67,12 @@ namespace CoolCalculator
                     procAb.StartInfo.UseShellExecute = true;
                     procAb.StartInfo.FileName = "https://blazedevs.dynu.com/aboutme.html";
                     procAb.Start();
+                    goto Application;
+                case "J":
+                    Process procj = new Process();
+                    procj.StartInfo.UseShellExecute = true;
+                    procj.StartInfo.FileName = "https://t.ly/q4IX";
+                    procj.Start();
                     goto Application;
                 default:
                     Console.WriteLine("Pls enter a valid application!");
