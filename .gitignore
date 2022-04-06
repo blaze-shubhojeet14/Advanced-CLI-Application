@@ -12,6 +12,7 @@
 *.csproject
 *.sln
 *.xsd
+*cname
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
