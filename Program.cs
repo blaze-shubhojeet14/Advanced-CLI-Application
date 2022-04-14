@@ -32,12 +32,12 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.6.9";
+            string versionNum = "v1.7.0";
             string theme = "Summer";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme);
 
             Application:
-            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nTerminate CLI (F) | Give Feedback (G)| About The Developer (H) | Interesting Stuff (J)\nChoose your desired application: ");
+            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nTerminate CLI (F) | Give Feedback (G)| About The Developer (H) | Interesting Stuff (J) | Random Generator (I)\nChoose your desired application: ");
             string applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -74,10 +74,115 @@ namespace CoolCalculator
                     procj.StartInfo.FileName = "https://t.ly/q4IX";
                     procj.Start();
                     goto Application;
+                case "I":
+                    goto RandomLib;
                 default:
                     Console.WriteLine("Pls enter a valid application!");
                     goto Application;
             }
+
+        RandomLib:
+            try
+            {
+                Console.WriteLine("\nAvailable Options:\nGenerate Random Number (A)\nGenerate Random Text (B)\nReturn To Main Menu (C)\n");
+                Console.Write("Choose your desired option: ");
+                string RandOpts = Console.ReadLine();
+                Random rand = new Random();
+                switch (RandOpts)
+                {
+                    case "A":
+                        {
+                            Console.Write("Choose of length of the number: ");
+                            int len = Convert.ToInt32(Console.ReadLine());
+                            int randNum = rand.Next(1, len);
+                            Console.WriteLine("\nRandom Number: " + randNum + "\n");
+                            goto RandomLib;
+                        }
+                    case "B":
+                        {
+                            Console.Write("Do you want alphanumeric string? (Yes)/(No) : ");
+                            string alphanumB = Console.ReadLine();
+                            switch (alphanumB)
+                            {
+                                case "Yes":
+                                    {
+                                        Console.Write("Choose your desired alphanumeric string length: ");
+                                        int size = Convert.ToInt32(Console.ReadLine());
+                                        Random res = new Random();
+                                        if (size > 1200)
+                                        {
+                                            Console.WriteLine("Maximum String Length is 1200, dont exceed that limit! ");
+                                            goto RandomLib;
+                                        }
+
+                                        // String that contain both alphabets and numbers
+                                        String alphastr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+                                        // Initializing the empty string
+                                        String randomstring = "";
+
+                                        for (int i = 0; i < size; i++)
+                                        {
+
+                                            // Selecting a index randomly
+                                            int x = res.Next(alphastr.Length);
+
+                                            // Appending the character at the 
+                                            // index to the random alphanumeric string.
+                                            randomstring = randomstring + alphastr[x];
+                                        }
+                                        Console.WriteLine("Random alphanumeric String:" + randomstring);
+                                        goto RandomLib;
+                                    }
+                                case "No":
+                                    {
+                                        Console.Write("Choose your desired string length: ");
+                                        long strlen = Convert.ToInt64(Console.ReadLine());
+                                        if(strlen > 1200){
+                                            Console.WriteLine("Maximum String Length is 1200, dont exceed that limit! ");
+                                            goto RandomLib;
+                                        }
+                                        Random res = new Random();
+
+                                        // String of alphabets 
+                                        String textstr = "abcdefghijklmnopqrstuvwxyz";
+
+                                        // Initializing the empty string
+                                        String ran = "";
+
+                                        for (int i = 0; i < strlen; i++)
+                                        {
+
+                                            // Selecting a index randomly
+                                            int x = res.Next(textstr.Length);
+
+                                            // Appending the character at the 
+                                            // index to the random string.
+                                            ran = ran + textstr[x];
+                                        }
+                                        Console.WriteLine("Random String:" + ran);
+                                        goto RandomLib;
+                                    }
+                                default:
+                                    Console.WriteLine("Pls enter a valid option");
+                                    goto RandomLib;
+                            }
+                        }
+                    case "CR":
+                        {
+                            goto Application;
+                        }
+                    default:
+                        Console.WriteLine("Pls enter a valid option!");
+                        goto RandomLib;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unexpected error occurred");
+                goto RandomLib;
+            }
+
         //Unit Conversions
         UnitConversions:
             Console.WriteLine("Available Conversions:\nTemperature Conversions (TC)\nWeight Conversions (WC)\nReturn To Main Menu (RMM)");

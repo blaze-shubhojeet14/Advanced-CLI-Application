@@ -7,7 +7,7 @@
     <NoWin32Manifest>true</NoWin32Manifest>
     <Company>Blaze Devs</Company>
     <Product>Advanced CLI Application</Product>
-    <Version>1.6.9</Version>
+    <Version>1.7.0</Version>
     <Authors>Blaze Devs</Authors>
     <RootNamespace>AdvancedCLIApp</RootNamespace>
     <AssemblyName>AdvancedCLIApp</AssemblyName>
@@ -20,5 +20,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Discord.Net" Version="3.5.0" />
+    <PackageReference Include="Discord.Net.Core" Version="3.5.0" />
+  </ItemGroup>
 
 </Project>
