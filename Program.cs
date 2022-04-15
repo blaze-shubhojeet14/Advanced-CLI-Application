@@ -6,8 +6,10 @@ using System.Linq;
 using System.Web;
 using System.Net.Mail;
 using System.IO;
+using System.Net.Http;
+using System.Text;
 
-namespace CoolCalculator
+namespace AdvancedCLIApplication
 {
     class Program
     {      
@@ -22,6 +24,11 @@ namespace CoolCalculator
             //Converting characters from array into single string  
             return string.Join("", b);
         }
+        public enum CoinSide
+        {
+            Heads = 0,
+            Tails = 1
+        }
 
         static void Main(string[] args)
         {
@@ -32,12 +39,12 @@ namespace CoolCalculator
             {
                 fname = "User";
             }
-            string versionNum = "v1.7.0";
+            string versionNum = "v1.7.5";
             string theme = "Summer";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme);
 
             Application:
-            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nTerminate CLI (F) | Give Feedback (G)| About The Developer (H) | Interesting Stuff (J) | Random Generator (I)\nChoose your desired application: ");
+            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nRandom Generator (F) | Interesting Stuff (G) | Terminate CLI (H) | Give Feedback (I)| About The Developer (J) |\nChoose your desired application: ");
             string applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -54,33 +61,70 @@ namespace CoolCalculator
                 case "E":
                     goto SearchModule;
                 case "F":
+                    goto RandomLib;
+                case "G":
+                    goto InterestingLib;
+                case "H":
                     Environment.Exit(0);
                     break;
-                case "G":
+                case "I":
                     Process procweb = new Process();
                     procweb.StartInfo.UseShellExecute = true;
                     procweb.StartInfo.FileName = "https://blazedevs.dynu.com/Contact.aspx";
                     procweb.Start();
                     goto Application;
-                case "H":
+                case "J":
                     Process procAb = new Process();
                     procAb.StartInfo.UseShellExecute = true;
                     procAb.StartInfo.FileName = "https://blazedevs.dynu.com/aboutme.html";
                     procAb.Start();
                     goto Application;
-                case "J":
-                    Process procj = new Process();
-                    procj.StartInfo.UseShellExecute = true;
-                    procj.StartInfo.FileName = "https://t.ly/q4IX";
-                    procj.Start();
-                    goto Application;
-                case "I":
-                    goto RandomLib;
+
                 default:
                     Console.WriteLine("Pls enter a valid application!");
                     goto Application;
             }
+        InterestingLib:
+            Console.Write("\nAvailable Options: Free Surprise (A) | Roll A Dice (B) | Flip a coin (C) | Return To Main Menu (D)\nChoose your desired option:");
+            string IntLibO = Console.ReadLine();
+            switch (IntLibO)
+            {
+                case "A":
+                    Console.WriteLine("Enjoy your surprise friend!");
+                    Process procj = new Process();
+                    procj.StartInfo.UseShellExecute = true;
+                    procj.StartInfo.FileName = "https://t.ly/q4IX";
+                    procj.Start();
+                    goto InterestingLib;
+                case "B":
+                    Random dice = new Random();
+                    int roll1 = dice.Next(1, 7);
+                    int roll2 = dice.Next(1, 7);
+                    int result = roll1 + roll2;
+                    Console.WriteLine($"First dice roll: {roll1}");
+                    Console.WriteLine($"Second dice roll: {roll2}");
+                    Console.WriteLine($"Total of dice rolls: {roll1} + {roll2} = {result}");
+                    goto InterestingLib;
+                case "C":
+                    Console.Write("Pick Heads or Tails: ");
+                    var userInput = Console.ReadLine();
 
+                    //Create and flip the coin
+                    var rng = new Random();
+                    var coin = (CoinSide)rng.Next(0, 2);
+
+                    //Compare input to coin
+                    if (coin.ToString() == userInput)
+                        Console.WriteLine("You picked Right! {0}! ", coin);
+                    else
+                        Console.WriteLine("You picked Wrong! it was {0}", coin);
+                    goto InterestingLib;
+                case "D":
+                    goto Application;
+                default:
+                    Console.WriteLine("Pls enter a valid option!!!");
+                    goto InterestingLib;                 
+            }
         RandomLib:
             try
             {
