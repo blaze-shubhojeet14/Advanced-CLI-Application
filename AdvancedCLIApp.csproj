@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,11 +7,11 @@
     <NoWin32Manifest>true</NoWin32Manifest>
     <Company>Blaze Devs</Company>
     <Product>Advanced CLI Application</Product>
-    <Version>1.7.5</Version>
+    <Version>1.8.0</Version>
     <Authors>Blaze Devs</Authors>
     <RootNamespace>AdvancedCLIApp</RootNamespace>
     <AssemblyName>AdvancedCLIApp</AssemblyName>
-    <ApplicationIcon>AdvancedCLIApp Logo summer.ico</ApplicationIcon>
+    <ApplicationIcon>AdvancedCLIApp Logo cyan.ico</ApplicationIcon>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
     <Copyright>Blaze Devs</Copyright>
@@ -20,5 +20,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
+  </ItemGroup>
 
 </Project>

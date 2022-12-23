@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Diagnostics;
+using MailKit;
+using MailKit.Security;
+using MimeKit;
 using System.Threading;
 using System.Net;
 using System.Linq;
 using System.Web;
-using System.Net.Mail;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using MailKit.Net.Smtp;
+using System.Threading.Tasks;
 
 namespace AdvancedCLIApplication
 {
     class Program
-    {      
-    //Function for swapping the characters at position I with character at position j  
+    {
+
+        //Function for swapping the characters at position I with character at position j
         public static String swapString(String a, int i, int j)
         {
             char[] b = a.ToCharArray();
@@ -30,6 +35,8 @@ namespace AdvancedCLIApplication
             Tails = 1
         }
 
+
+        
         static void Main(string[] args)
         {
             Console.Write("Enter your name: ");
@@ -39,12 +46,12 @@ namespace AdvancedCLIApplication
             {
                 fname = "User";
             }
-            string versionNum = "v1.7.5";
-            string theme = "Summer";
+            string versionNum = "v1.8.0";
+            string theme = "Winter";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme);
 
             Application:
-            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nRandom Generator (F) | Interesting Stuff (G) | Terminate CLI (H) | Give Feedback (I)| About The Developer (J) |\nChoose your desired application: ");
+            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nRandom Generator (F) | Interesting Stuff (G) | Email (H) | Terminate CLI (I) | Give Feedback (J)| About The Developer (K) |\nChoose your desired application: ");
             string applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -65,15 +72,17 @@ namespace AdvancedCLIApplication
                 case "G":
                     goto InterestingLib;
                 case "H":
+                    goto MailLib2;
+                case "I":
                     Environment.Exit(0);
                     break;
-                case "I":
+                case "J":
                     Process procweb = new Process();
                     procweb.StartInfo.UseShellExecute = true;
                     procweb.StartInfo.FileName = "https://blazedevs.dynu.com/Contact.aspx";
                     procweb.Start();
                     goto Application;
-                case "J":
+                case "K":
                     Process procAb = new Process();
                     procAb.StartInfo.UseShellExecute = true;
                     procAb.StartInfo.FileName = "https://blazedevs.dynu.com/aboutme.html";
@@ -84,6 +93,134 @@ namespace AdvancedCLIApplication
                     Console.WriteLine("Pls enter a valid application!");
                     goto Application;
             }
+        MailLib2:
+            try
+            {
+
+                SmtpClient client = new SmtpClient();
+                MimeMessage message = new MimeMessage();
+
+                Console.WriteLine("\nAvailable Options: Send an Email (E) | Return to Main Menu (M) | Terminate CLI (T)");
+                Console.Write("Choose your desired option: ");
+                string mailOpts = Console.ReadLine();
+
+                switch(mailOpts)
+                {
+                    case "E":
+                        {
+                            Console.WriteLine("\nWelcome to Blaze Devs FilumMail service");
+                            //Server Credentials
+                            MailServer:
+                            Console.WriteLine("Available Mail Server Options: Gmail (G) | Outlook (O) | Custom Mail Server (C) ");
+                            Console.Write("Choose your desired mail server: ");
+                            string mailServer = Console.ReadLine();
+                            switch(mailServer)
+                            {
+                                case "G":
+                                    Console.WriteLine("Alert: Gmail now requires app passwords for sending mail using SMTP so use your generated app password to send email");
+                                    Console.WriteLine("Check this article to generate app passwords: https://support.google.com/accounts/answer/185833");
+                                    client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTlsWhenAvailable);
+                                    break;
+                                case "O":
+                                    client.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
+                                    break;
+                                case "C":
+                                    Console.Write("\nEnter the hostname of your mailserver: ");
+                                    string hostName = Console.ReadLine();
+                                    Console.Write("Enter the TLS port number of your mailserver: ");
+                                    int portTLS = Convert.ToInt32(Console.ReadLine());
+                                    client.Connect(hostName, portTLS, SecureSocketOptions.StartTls);
+                                    break;
+                                default:
+                                    Console.WriteLine("Invalid selection, please try again!");
+                                    goto MailServer;
+                            }
+                            //Mail Credentials
+                            Console.Write("\nEnter your login email address: ");
+                            string credMail = Console.ReadLine();
+                            Console.Write("Enter your login password: ");
+                            string credPass = Console.ReadLine();
+                            client.Authenticate(
+                                userName: credMail,
+                                password: credPass
+                                );
+
+
+                            //Mail Content
+                            Console.Write("\nEnter your full name: ");
+                            string fName = Console.ReadLine();
+                            Console.Write("\nEnter your email address: ");
+                            string senderMail = Console.ReadLine();
+                            Console.Write("\nEnter the receiver's email address: ");
+                            string receiverMail = Console.ReadLine();
+                            Console.Write("\nEnter the subject of your email: ");
+                            string mailSubject = Console.ReadLine();
+                            Console.Write("\nEnter the body of your email: ");
+                            string mailBody = Console.ReadLine();
+                            Console.Write("\nEnter the path for any attachments(if not then leave the field blank): ");
+                            string mailAttach = Console.ReadLine();
+                            if (mailAttach == "")
+                            {
+                                var bodyA = new BodyBuilder();
+                                bodyA.TextBody = mailBody;
+                                bodyA.HtmlBody = mailBody;
+                                message.Body = bodyA.ToMessageBody();
+                                Console.WriteLine("No Attachment Selected!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Attachment selected! FilePath is " + mailAttach);
+                                var body = new BodyBuilder();
+                                body.TextBody = mailBody;
+                                body.HtmlBody = mailBody;
+                                body.Attachments.Add(mailAttach);
+                                message.Body = body.ToMessageBody();
+                            }
+                            message.From.Add(new MailboxAddress(
+                                fName,
+                                senderMail
+                                ));
+                            message.To.Add(new MailboxAddress(
+                                "",
+                                receiverMail
+                                ));
+
+                            message.Subject = mailSubject;
+
+                            client.Send(message);
+                            Console.WriteLine("\nMail sent successfully!");
+                            client.Disconnect(true);
+
+                            goto MailLib2;
+
+                        }
+                    case "M":
+                        {
+                            goto Application;
+                        }
+                    case "T":
+                        {
+                            Environment.Exit(0);
+                            break;
+                        }
+                    default:
+                        {
+                            Console.WriteLine("Invalid Selection, please try again!");
+                            goto MailLib2;
+                        }
+                }
+
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("\nUnexpected error occurred! Please try again!");
+                Console.WriteLine("Error Details: " + e);
+                goto MailLib2;
+            }
+            
+
+
         InterestingLib:
             Console.Write("\nAvailable Options: Free Surprise (A) | Roll A Dice (B) | Flip a coin (C) | Return To Main Menu (D)\nChoose your desired option:");
             string IntLibO = Console.ReadLine();
@@ -136,7 +273,7 @@ namespace AdvancedCLIApplication
                 {
                     case "A":
                         {
-                            Console.Write("Choose of length of the number: ");
+                            Console.Write("Choose length of the number: ");
                             int len = Convert.ToInt32(Console.ReadLine());
                             int randNum = rand.Next(1, len);
                             Console.WriteLine("\nRandom Number: " + randNum + "\n");
@@ -741,7 +878,7 @@ namespace AdvancedCLIApplication
                 }
         }
         //Function for generating different permutations of the string  
-        public static void generatePermutation(String str, int start, int end)
+        static void generatePermutation(String str, int start, int end)
         {
             //Prints the permutations  
             if (start == end - 1)
