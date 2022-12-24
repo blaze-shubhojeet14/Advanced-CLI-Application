@@ -46,7 +46,7 @@ namespace AdvancedCLIApplication
             {
                 fname = "User";
             }
-            string versionNum = "v1.8.5 ";
+            string versionNum = "v1.8.5";
             string theme = "Winter";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme);
 
@@ -358,7 +358,7 @@ namespace AdvancedCLIApplication
                         goto RandomLib;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Unexpected error occurred");
                 goto RandomLib;
@@ -651,15 +651,15 @@ namespace AdvancedCLIApplication
                                             Console.WriteLine("Remainder is " + remainNum);
                                             break;
                                         }
-                                        catch (FormatException ex)
+                                        catch (FormatException)
                                         {
                                             Console.WriteLine("Input string was not in a correct format.");
                                         }
-                                        catch (InvalidOperationException ex)
+                                        catch (InvalidOperationException)
                                         {
                                             Console.WriteLine("Not a valid numbers to perform operation");
                                         }
-                                        catch (DivideByZeroException ex)
+                                        catch (DivideByZeroException)
                                         {
                                             Console.WriteLine("Cannot Divide By Zero as it gives answer as infinity");
                                         }
