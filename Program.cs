@@ -215,7 +215,7 @@ namespace AdvancedCLIApplication
             catch (Exception e)
             {
                 Console.WriteLine("\nUnexpected error occurred! Please try again!");
-                Console.WriteLine("Error Details: " + e);
+                Console.WriteLine("Error Details: " + e.Message);
                 goto MailLib2;
             }
             
@@ -601,6 +601,7 @@ namespace AdvancedCLIApplication
             catch
             {
                 Console.WriteLine("Oops Something Went Wrong!");
+                goto Clock;
             }
 
 
