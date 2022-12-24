@@ -46,7 +46,7 @@ namespace AdvancedCLIApplication
             {
                 fname = "User";
             }
-            string versionNum = "v1.8.0";
+            string versionNum = "v1.8.5";
             string theme = "Winter";
             Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme);
 
