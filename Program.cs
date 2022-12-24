@@ -349,7 +349,7 @@ namespace AdvancedCLIApplication
                                     goto RandomLib;
                             }
                         }
-                    case "CR":
+                    case "C":
                         {
                             goto Application;
                         }
