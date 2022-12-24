@@ -7,7 +7,7 @@
     <NoWin32Manifest>true</NoWin32Manifest>
     <Company>Blaze Devs</Company>
     <Product>Advanced CLI Application</Product>
-    <Version>1.8.0</Version>
+    <Version>1.8.5</Version>
     <Authors>Blaze Devs</Authors>
     <RootNamespace>AdvancedCLIApp</RootNamespace>
     <AssemblyName>AdvancedCLIApp</AssemblyName>
@@ -15,6 +15,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
     <Copyright>Blaze Devs</Copyright>
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
