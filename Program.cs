@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Diagnostics;
-using MailKit;
 using MailKit.Security;
 using MimeKit;
-using System.Threading;
-using System.Net;
 using System.Linq;
-using System.Web;
-using System.IO;
-using System.Net.Http;
-using System.Text;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
+using YoutubeExplode.Converter;
+using YoutubeExplode.Videos.Streams;
+using YoutubeExplode.Common;
+using System.IO;
+using System.Net.NetworkInformation;
 
 namespace AdvancedCLIApplication
 {
     class Program
     {
 
+        public static bool IsNumeric(string value)
+        {
+            return value.All(char.IsNumber);
+        }
         //Function for swapping the characters at position I with character at position j
         public static String swapString(String a, int i, int j)
         {
@@ -34,11 +36,10 @@ namespace AdvancedCLIApplication
             Heads = 0,
             Tails = 1
         }
-
-
         
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
+
             Console.Write("Enter your name: ");
             string fname = Console.ReadLine();
 
@@ -46,12 +47,13 @@ namespace AdvancedCLIApplication
             {
                 fname = "User";
             }
-            string versionNum = "v1.8.5";
+            string versionNum = "v1.9.0";
             string theme = "Winter";
-            Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme);
+            Console.WriteLine("Hello " + fname + ", Welcome to Blaze Devs Advanced CLI Application! \nVersion: " + versionNum + "\nSeason/Theme: " + theme + "\nHappy New Year 2023!");
 
-            Application:
-            Console.Write("Available Applications: Calculator (A) | Unit Conversions (B) | Clock (C) | Calendar (D) | Search Engines (E) |\nRandom Generator (F) | Interesting Stuff (G) | Email (H) | Terminate CLI (I) | Give Feedback (J)| About The Developer (K) |\nChoose your desired application: ");
+
+        Application:
+            Console.Write("\nAvailable Applications: Calculator (A) | Clock (C) | Calendar (D) | Internet Activities (E) |\nInteresting Stuff (G) | Terminate CLI (I) |\nChoose your desired application: ");
             string applicationIn = Console.ReadLine();
 
             switch (applicationIn)
@@ -59,16 +61,68 @@ namespace AdvancedCLIApplication
 
                 case "A":
                     goto Methods;
-                case "B":
-                    goto UnitConversions;
                 case "C":
                     goto Clock;
                 case "D":
                     goto Calendar;
                 case "E":
-                    goto SearchModule;
-                case "F":
-                    goto RandomLib;
+                ActivityManager:
+                    {                    
+                        Console.WriteLine("\nAvailable Activities: Search Engines(A) | Email(B) | YouTube Downloader(C) | Give Feedback On This App(D) | About The App Developer(E) | Internet Availability Checker (F) | Switch Application(S) | Terminate CLI(T)");
+                        Console.Write("Choose your desired activity: ");
+                        string activityApp = Console.ReadLine();
+                        switch(activityApp)
+                        {
+                            case "A":
+                                {
+                                    goto SearchModule;
+                                }
+                            case "B":
+                                {
+                                    goto MailLib2;
+                                }
+                            case "C":
+                                {
+                                    goto YTdlLib;
+                                }
+                            case "D":
+                                {
+                                    Process procweb = new Process();
+                                    procweb.StartInfo.UseShellExecute = true;
+                                    procweb.StartInfo.FileName = "https://blazedevs.dynu.com/Contact.aspx";
+                                    procweb.Start();
+                                    Console.WriteLine("Opened the Feedback page on your web browser");
+                                    goto ActivityManager;
+                                }
+                            case "E":
+                                {
+                                    Process procAb = new Process();
+                                    procAb.StartInfo.UseShellExecute = true;
+                                    procAb.StartInfo.FileName = "https://blazedevs.dynu.com/aboutme.html";
+                                    procAb.Start();
+                                    Console.WriteLine("Opened the Developer's About page on your web browser");
+                                    goto ActivityManager;
+                                }
+                            case "S":
+                                {
+                                    goto Application;
+                                }
+                            case "T":
+                                {
+                                    Environment.Exit(0);
+                                    break;
+                                }
+                            case "F":
+                                {
+                                    goto InterNetChecker;
+                                }
+                            default:
+                                Console.WriteLine("Pls enter a valid activity!");
+                                goto ActivityManager;
+
+                        }
+                        break;
+                    }                 
                 case "G":
                     goto InterestingLib;
                 case "H":
@@ -76,23 +130,216 @@ namespace AdvancedCLIApplication
                 case "I":
                     Environment.Exit(0);
                     break;
-                case "J":
-                    Process procweb = new Process();
-                    procweb.StartInfo.UseShellExecute = true;
-                    procweb.StartInfo.FileName = "https://blazedevs.dynu.com/Contact.aspx";
-                    procweb.Start();
-                    goto Application;
-                case "K":
-                    Process procAb = new Process();
-                    procAb.StartInfo.UseShellExecute = true;
-                    procAb.StartInfo.FileName = "https://blazedevs.dynu.com/aboutme.html";
-                    procAb.Start();
-                    goto Application;
-
                 default:
                     Console.WriteLine("Pls enter a valid application!");
                     goto Application;
             }
+           InterNetChecker:
+            string intStatus;
+            try
+            {
+                Ping myPing = new Ping();
+                String host = "google.com";
+                byte[] buffer = new byte[32];
+                int timeout = 1000;
+                PingOptions pingOptions = new PingOptions();
+                PingReply reply = myPing.Send(host, timeout, buffer, pingOptions);
+                if (reply.Status == IPStatus.Success)
+                {
+                    intStatus = "Internet is available :) | You can use our Internet Activities!";
+                    Console.WriteLine(intStatus + "\n");
+                    goto Application;
+                }
+                else
+                {
+                    intStatus = "Internet is not available :( | Please fix your Internet connection!";
+                    Console.WriteLine(intStatus + "\n");
+                    goto Application;
+                }
+            }
+            catch (Exception e)
+            {
+                intStatus = "Error checking internet availability!" + "\nError Details: " + e.Message;
+                Console.WriteLine(intStatus + "\n");
+                goto Application;
+            }
+
+        YTdlLib:
+            try
+            {
+
+                string machineUserN = Environment.UserName;
+                var youtubeClient = new YoutubeExplode.YoutubeClient();
+                Console.WriteLine("Disclaimer: This module requires FFmpeg to be installed in your PC! |\n if not installed then refer to this article: https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/");
+                Console.WriteLine("\nAvailable Options: Download a video (V) | Download a playlist (P) | Return To Main Menu (R) | Terminate CLI (T)");
+                Console.Write("Choose your desired download option: ");
+                string downloadOpts = Console.ReadLine();
+                switch (downloadOpts)
+                {
+                    case "V":
+                        {
+                        YTVD:
+                            try
+                            {
+
+                                Console.Write("Enter the video URL: ");
+                                string videoURI = Console.ReadLine();
+
+
+                                var streamManifest = await youtubeClient.Videos.Streams.GetManifestAsync(videoURI);
+
+                                var audioStreamInfo = streamManifest.GetAudioStreams().GetWithHighestBitrate();
+                                var videoStreamInfo = streamManifest.GetVideoStreams().GetWithHighestVideoQuality();
+                                var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
+                                Console.Write("\nEnter the desired file name for your download(video1 by default): ");
+                                string fileNameV = Console.ReadLine();
+                                if (fileNameV == "")
+                                {
+                                    fileNameV = "video1";
+                                }
+                                Console.Write("\nEnter the desired location for your download(Downloads by default): ");
+                                string downPath = Console.ReadLine();
+                                if (downPath == "")
+                                {
+                                    downPath = "C:\\Users\\" + machineUserN + "\\Downloads\\";
+                                    Console.WriteLine("Download Path: " + downPath);
+                                }
+                                Console.Write("\nDo you want to download the video captions too[Y/N](N by default): ");
+                                string resV = Console.ReadLine();
+                                switch (resV)
+                                {
+                                    case "Y":
+                                        {
+                                            var trackManifest = await youtubeClient.Videos.ClosedCaptions.GetManifestAsync(videoURI);
+                                            var trackInfoV = trackManifest.TryGetByLanguage("en");
+                                            if (trackInfoV == null)
+                                            {
+                                                Console.WriteLine("\nNo english captions available!");
+                                                Console.WriteLine("\nProceeding with video download...");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("English captions are available!");
+                                                Console.Write("\nEnter a name for the captions file: ");
+                                                string ccName = Console.ReadLine();
+                                                if (ccName == "")
+                                                {
+                                                    ccName = fileNameV + ".srt";
+                                                }
+                                                var trackV = await youtubeClient.Videos.ClosedCaptions.GetAsync(trackInfoV);
+                                                Console.WriteLine("Downloading... ");
+                                                await youtubeClient.Videos.ClosedCaptions.DownloadAsync(trackInfoV, downPath + ccName);
+                                                Console.WriteLine("Captions downloaded at " + downPath + " with name " + ccName);
+                                                Console.WriteLine("Proceeding with video download...");
+                                            }
+                                            break;
+                                        }
+                                    case "N":
+                                        {
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            break;
+                                        }
+                                }
+                                Console.WriteLine("\nDownloading...");
+                                await youtubeClient.Videos.DownloadAsync(videoURI, new ConversionRequestBuilder(downPath + fileNameV + ".mp4").Build());
+
+                                Console.WriteLine("Video has been downloaded successfully at " + downPath + " with the name " + fileNameV + ".mp4");
+                                Console.WriteLine("Exiting Video Download Library...");
+                                Console.WriteLine("\n");
+
+                                goto YTdlLib;
+
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("Unexpected error occurred!");
+                                Console.WriteLine("Error Details: " + e.Message);
+                                goto YTVD;
+                            }
+                        }
+                    case "P":
+                        {
+                        YTPL:
+                            try
+                            {
+
+                                string machineUserP = Environment.UserName;
+                                var YTclient = new YoutubeExplode.YoutubeClient();
+                                Console.Write("Enter your playlist URL: ");
+                                string playlistURI = Console.ReadLine();
+                                var playlistMeta = await YTclient.Playlists.GetAsync(playlistURI);
+                                var playlistName = playlistMeta.Title;
+
+                                Console.Write("\nChoose a download location for the playlist (Downloads by default): ");
+                                string downPathP = Console.ReadLine();
+
+                                if (downPathP == "")
+                                {
+                                    string downs = "C:\\Users\\" + machineUserN + "\\Downloads";
+                                    downPathP = "C:\\Users\\" + machineUserN + "\\Downloads\\" + playlistName;
+                                    if (!Directory.Exists(downPathP))
+                                    {
+                                        Directory.CreateDirectory(downPathP);
+                                    }
+                                    Console.WriteLine("Download Path: " + downPathP);
+                                }
+                                Console.Write("Choose a filename for the downloads(a number sequence will be appended)[video by default]: ");
+                                string fileNameP = Console.ReadLine();
+                                string fileNameT = fileNameP;
+                                if (fileNameP == "")
+                                {
+                                    fileNameP = "video";
+                                }
+                                var i = 1;
+                                await foreach (var videoP in YTclient.Playlists.GetVideosAsync(playlistURI))
+                                {
+
+                                    fileNameP = fileNameT + i;
+                                    i = i + 1;
+                                    var streamsManifest = await YTclient.Videos.Streams.GetManifestAsync(videoP.Id);
+                                    var audioStreamInfo = streamsManifest.GetAudioStreams().GetWithHighestBitrate();
+                                    var videoStreamInfo = streamsManifest.GetVideoStreams().GetWithHighestVideoQuality();
+                                    var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
+                                    Console.WriteLine("Downloading " + fileNameP + "...");
+                                    await YTclient.Videos.DownloadAsync(videoP.Id, new ConversionRequestBuilder(downPathP + fileNameP + ".mp4").Build());
+                                    Console.WriteLine("Downloaded successfully at " + downPathP);
+                                }
+                                Console.WriteLine("Playlist Downloaded Successfully!");
+                                Console.WriteLine("Exiting Playlist Download Library...");
+                                goto YTdlLib;
+
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("Unexpected error occurred!");
+                                Console.WriteLine("Error Details: " + e.Message);
+                                goto YTPL;
+                            }
+                        }
+                    case "R":
+                        {
+                            goto Application;
+                        }
+                    case "T":
+                        {
+                            Environment.Exit(0);
+                            break;
+                        }
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unexpected error occurred: ");
+                Console.WriteLine("Error Details: " + e.Message);
+                Console.WriteLine("Returning to YouTube Downloader Library...");
+                Console.WriteLine("\n");
+                goto YTdlLib;
+            }
+
         MailLib2:
             try
             {
@@ -104,32 +351,32 @@ namespace AdvancedCLIApplication
                 Console.Write("Choose your desired option: ");
                 string mailOpts = Console.ReadLine();
 
-                switch(mailOpts)
+                switch (mailOpts)
                 {
                     case "E":
                         {
                             Console.WriteLine("\nWelcome to Blaze Devs FilumMail service");
-                            //Server Credentials
-                            MailServer:
+                        //Server Credentials
+                        MailServer:
                             Console.WriteLine("Available Mail Server Options: Gmail (G) | Outlook (O) | Custom Mail Server (C) ");
                             Console.Write("Choose your desired mail server: ");
                             string mailServer = Console.ReadLine();
-                            switch(mailServer)
+                            switch (mailServer)
                             {
                                 case "G":
                                     Console.WriteLine("Alert: Gmail now requires app passwords for sending mail using SMTP so use your generated app password to send email");
                                     Console.WriteLine("Check this article to generate app passwords: https://support.google.com/accounts/answer/185833");
-                                    client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTlsWhenAvailable);
+                                    await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTlsWhenAvailable);
                                     break;
                                 case "O":
-                                    client.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
+                                    await client.ConnectAsync("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
                                     break;
                                 case "C":
                                     Console.Write("\nEnter the hostname of your mailserver: ");
                                     string hostName = Console.ReadLine();
                                     Console.Write("Enter the TLS port number of your mailserver: ");
                                     int portTLS = Convert.ToInt32(Console.ReadLine());
-                                    client.Connect(hostName, portTLS, SecureSocketOptions.StartTls);
+                                    await client.ConnectAsync(hostName, portTLS, SecureSocketOptions.StartTls);
                                     break;
                                 default:
                                     Console.WriteLine("Invalid selection, please try again!");
@@ -140,7 +387,7 @@ namespace AdvancedCLIApplication
                             string credMail = Console.ReadLine();
                             Console.Write("Enter your login password: ");
                             string credPass = Console.ReadLine();
-                            client.Authenticate(
+                            await client.AuthenticateAsync(
                                 userName: credMail,
                                 password: credPass
                                 );
@@ -187,9 +434,10 @@ namespace AdvancedCLIApplication
 
                             message.Subject = mailSubject;
 
-                            client.Send(message);
+                            Console.WriteLine("Sending mail... ");
+                            await client.SendAsync(message);
                             Console.WriteLine("\nMail sent successfully!");
-                            client.Disconnect(true);
+                            await client.DisconnectAsync(true);
 
                             goto MailLib2;
 
@@ -210,7 +458,7 @@ namespace AdvancedCLIApplication
                         }
                 }
 
-                
+
             }
             catch (Exception e)
             {
@@ -218,11 +466,10 @@ namespace AdvancedCLIApplication
                 Console.WriteLine("Error Details: " + e.Message);
                 goto MailLib2;
             }
-            
 
 
         InterestingLib:
-            Console.Write("\nAvailable Options: Free Surprise (A) | Roll A Dice (B) | Flip a coin (C) | Return To Main Menu (D)\nChoose your desired option:");
+            Console.Write("\nAvailable Options: Free Surprise (A) | Roll A Dice (B) | Flip a coin (C) | Random Generator (D) | Return To Main Menu (E)\nChoose your desired option:");
             string IntLibO = Console.ReadLine();
             switch (IntLibO)
             {
@@ -257,10 +504,12 @@ namespace AdvancedCLIApplication
                         Console.WriteLine("You picked Wrong! it was {0}", coin);
                     goto InterestingLib;
                 case "D":
+                    goto RandomLib;
+                case "E":
                     goto Application;
                 default:
                     Console.WriteLine("Pls enter a valid option!!!");
-                    goto InterestingLib;                 
+                    goto InterestingLib;
             }
         RandomLib:
             try
@@ -319,7 +568,8 @@ namespace AdvancedCLIApplication
                                     {
                                         Console.Write("Choose your desired string length: ");
                                         long strlen = Convert.ToInt64(Console.ReadLine());
-                                        if(strlen > 1200){
+                                        if (strlen > 1200)
+                                        {
                                             Console.WriteLine("Maximum String Length is 1200, dont exceed that limit! ");
                                             goto RandomLib;
                                         }
@@ -444,7 +694,7 @@ namespace AdvancedCLIApplication
                             goto WeghConver;
                         }
                     }
-                        
+
                 case "RMM":
                     {
                         goto Application;
@@ -456,7 +706,7 @@ namespace AdvancedCLIApplication
         //Search Modules
         SearchModule:
             Console.WriteLine("Available Options & Search Engines:- \nGoogle (G)\nBing (B)\nYahoo (Y)\nDuckDuckGo (D)\nAsk (A)\nAol (AO)\nWikipedia (W)\nReturn To Main Menu (RMM)\nTerminate CLI (T)");
-         FunctionsS:
+        FunctionsS:
             Console.Write("Choose your search engine: ");
             string searche = Console.ReadLine();
             Console.Write("Enter your query:");
@@ -519,39 +769,53 @@ namespace AdvancedCLIApplication
         Calendar:
             try
             {
-                Console.Write("Choose an year: ");
-                int yearNum = Convert.ToInt32(Console.ReadLine());
-                for (int i = 1; i < 13; i++)
+                Console.Write("Choose an year(chooses the current year by default): ");
+                string yearIn = Console.ReadLine();
+                int yearNum;
+
+                if ((yearIn.Length < 1) && (yearIn.Length > 4) && (IsNumeric(yearIn) == false))
                 {
-                    var month = new DateTime(yearNum, i, 1);
-          
-                    var headingSpaces = new string(' ', 16 - month.ToString("MMMM").Length);
-                    Console.WriteLine($"{month.ToString("MMMM")}{headingSpaces}{month.Year}");
-                    Console.WriteLine(new string('-', 20));
-                    Console.WriteLine("Su Mo Tu We Th Fr Sa");
+                    yearNum = DateTime.Now.Year;
 
-                    var padLeftDays = (int)month.DayOfWeek;
-                    var currentDay = month;
+                }
+                else
+                {
+                    yearNum = Convert.ToInt32(yearIn);
 
-                    var iterations = DateTime.DaysInMonth(month.Year, month.Month) + padLeftDays;
-                    for (int j = 0; j < iterations; j++)
+
+
+                    for (int i = 1; i < 13; i++)
                     {
-                        if (j < padLeftDays)
-                        {
-                            Console.Write("   ");
-                        }
-                        else
-                        {
-                            Console.Write($"{currentDay.Day.ToString().PadLeft(2, ' ')} ");
+                        var month = new DateTime(yearNum, i, 1);
 
-                            if ((j + 1) % 7 == 0)
+                        var headingSpaces = new string(' ', 16 - month.ToString("MMMM").Length);
+                        Console.WriteLine($"{month.ToString("MMMM")}{headingSpaces}{month.Year}");
+                        Console.WriteLine(new string('-', 20));
+                        Console.WriteLine("Su Mo Tu We Th Fr Sa");
+
+                        var padLeftDays = (int)month.DayOfWeek;
+                        var currentDay = month;
+
+                        var iterations = DateTime.DaysInMonth(month.Year, month.Month) + padLeftDays;
+                        for (int j = 0; j < iterations; j++)
+                        {
+                            if (j < padLeftDays)
                             {
-                                Console.WriteLine();
+                                Console.Write("   ");
                             }
-                            currentDay = currentDay.AddDays(1);
+                            else
+                            {
+                                Console.Write($"{currentDay.Day.ToString().PadLeft(2, ' ')} ");
+
+                                if ((j + 1) % 7 == 0)
+                                {
+                                    Console.WriteLine();
+                                }
+                                currentDay = currentDay.AddDays(1);
+                            }
                         }
+                        Console.WriteLine("\n");
                     }
-                    Console.WriteLine("\n");
                 }
                 Console.WriteLine("\nDone!");
             CalOpts:
@@ -571,11 +835,13 @@ namespace AdvancedCLIApplication
                         goto CalOpts;
                 }
             }
-            catch
+            catch (Exception e)
             {
                 Console.WriteLine("Oops something went wrong!");
+                Console.WriteLine(e.Message);
                 goto Calendar;
             }
+
 
         //Clock Modules
         Clock:
@@ -596,7 +862,7 @@ namespace AdvancedCLIApplication
                         goto Application;
                     default:
                         goto Clock;
-                }                 
+                }
             }
             catch
             {
@@ -605,34 +871,35 @@ namespace AdvancedCLIApplication
             }
 
 
-         //Calculator Modules
-         Methods:
+        //Calculator Modules
+        Methods:
 
-                Console.WriteLine("\nAvailable Methods: Scientific (S) | Arithmetic (A) | Return to Main Menu (RMM) | Terminate CLI (exit) ");
-                Console.Write("Choose a method: ");
-                string methodType = Console.ReadLine();
-                switch (methodType)
-                {
-                    default:
-                        {
-                            Console.WriteLine("Pls choose a valid method");
-                            goto Methods;
-                        }
-                    case "":
-                        {
-                            Console.WriteLine("Pls choose a valid method");
-                            goto Methods;
-                        }
-                    case "A":
-                        {
-                            Console.WriteLine("\nCurrent Method: Arithmetic");
-                            Console.WriteLine("Available Operators: \nFor Addition: + \nFor Subtraction: - \nFor Division: # \nFor Division with Remainder: / \nFor Multiplication: * \nFor Modulus: % ");
-                            Console.WriteLine("If you want to switch method then type Swh in operation field!");
-                            Console.WriteLine("To Terminate CLI, type exit in operation field!");
+            Console.WriteLine("\nAvailable Methods: Scientific (S) | Arithmetic (A) | Programmer (P) | Unit Convertor (U) | Return to Main Menu (R) | Terminate CLI (E) ");
+            Console.Write("Choose a method: ");
+            string methodType = Console.ReadLine();
+            switch (methodType)
+            {
+                default:
+                    {
+                        Console.WriteLine("Pls choose a valid method");
+                        goto Methods;
+                    }
+                case "":
+                    {
+                        Console.WriteLine("Pls choose a valid method");
+                        goto Methods;
+                    }
 
-                            Begin:
-                            Console.Write("\nChoose your operation: ");
-                            string operationIn = Console.ReadLine();
+                case "A":
+                    {
+                        Console.WriteLine("\nCurrent Method: Arithmetic");
+                        Console.WriteLine("Available Operators: \nFor Addition: + \nFor Subtraction: - \nFor Division: # \nFor Division with Remainder: / \nFor Multiplication: * \nFor Modulus: % ");
+                        Console.WriteLine("If you want to switch method then type Swh in operation field!");
+                        Console.WriteLine("To Terminate CLI, type exit in operation field!");
+
+                    Begin:
+                        Console.Write("\nChoose your operation: ");
+                        string operationIn = Console.ReadLine();
                         try
                         {
                             switch (operationIn)
@@ -661,7 +928,7 @@ namespace AdvancedCLIApplication
                                         }
                                         catch (DivideByZeroException)
                                         {
-                                            Console.WriteLine("Cannot Divide By Zero as it gives answer as infinity");
+                                            Console.WriteLine("Cannot Divide By Zero as it gives the result as infinity");
                                         }
                                         break;
                                     }
@@ -738,68 +1005,67 @@ namespace AdvancedCLIApplication
                             goto Begin;
                         }
 
-                        }
- 
-                    case "S":
+                    }
+
+                case "S":
+                    {
+                    BasicMthTxt:
+                        Console.WriteLine("\n\nAvailable Functions: \nSquareroot (S)\nRounding-off (R)\nCuberoot (C)\nChecking Prime Numbers (P)\nPermutations (PE)\nExponents (E)\nArea of a rectangle (A)\nVolume of a circle (V)\nStrike Rate In Cricket (SR)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
+                    function:
+                        Console.Write("\nChoose the function you want to use: ");
+                        string funcTion = Console.ReadLine();
+                        try
                         {
-                        BasicMthTxt:
-                            //Console.WriteLine("This module in under development, pls use the Advanced Method till then!");
-                            Console.WriteLine("\n\nAvailable Functions: \nSquareroot (S)\nRounding-off (R)\nCuberoot (C)\nChecking Prime Numbers (P)\nPermutations (PE)\nExponents (E)\nArea of a rectangle (A)\nVolume of a circle (V)\nStrike Rate In Cricket (SR)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
-                        function:
-                            Console.Write("\nChoose the function you want to use: ");
-                            string funcTion = Console.ReadLine();
-                            try
+                            switch (funcTion)
                             {
-                                switch (funcTion)
-                                {
-                                    case "S":
-                                        {
-                                            Console.Write("Enter your desired number: ");
-                                            double sqNum = Convert.ToDouble(Console.ReadLine());
-                                            Console.Write("\nSquareroot of " + sqNum + " is ");
-                                            Console.Write(Math.Sqrt(sqNum));
-                                            goto function;
-                                        }
+                                case "S":
+                                    {
+                                        Console.Write("Enter your desired number: ");
+                                        double sqNum = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("\nSquareroot of " + sqNum + " is ");
+                                        Console.Write(Math.Sqrt(sqNum));
+                                        goto function;
+                                    }
 
-                                    case "R":
-                                        {
-                                            Console.Write("Enter the number you want to round-off: ");
-                                            double rndNum = Convert.ToDouble(Console.ReadLine());
-                                            Console.Write("\nRounding-off " + rndNum + " gives ");
-                                            Console.Write(Math.Round(rndNum));
-                                            goto function;
-                                        }
+                                case "R":
+                                    {
+                                        Console.Write("Enter the number you want to round-off: ");
+                                        double rndNum = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("\nRounding-off " + rndNum + " gives ");
+                                        Console.Write(Math.Round(rndNum));
+                                        goto function;
+                                    }
 
-                                    case "C":
+                                case "C":
+                                    {
+                                        Console.Write("Enter your desired number: ");
+                                        double cbNum = Convert.ToDouble(Console.ReadLine());
+                                        Console.Write("\nCuberoot of " + cbNum + " is ");
+                                        Console.Write(Math.Cbrt(cbNum));
+                                        goto function;
+                                    }
+                                case "P":
+                                    int n, i, m = 0, flag = 0;
+                                    Console.Write("Enter the Number to check Prime: ");
+                                    n = int.Parse(Console.ReadLine());
+                                    m = n / 2;
+                                    for (i = 2; i <= m; i++)
+                                    {
+                                        if (n % i == 0)
                                         {
-                                            Console.Write("Enter your desired number: ");
-                                            double cbNum = Convert.ToDouble(Console.ReadLine());
-                                            Console.Write("\nCuberoot of " + cbNum + " is ");
-                                            Console.Write(Math.Cbrt(cbNum));
+                                            Console.Write("Number is not Prime.");
+                                            flag = 1;
                                             goto function;
                                         }
-                                    case "P":
-                                        int n, i, m = 0, flag = 0;
-                                        Console.Write("Enter the Number to check Prime: ");
-                                        n = int.Parse(Console.ReadLine());
-                                        m = n / 2;
-                                        for (i = 2; i <= m; i++)
-                                        {
-                                            if (n % i == 0)
-                                            {
-                                                Console.Write("Number is not Prime.");
-                                                flag = 1;
-                                                goto function;
-                                            }
-                                        }
-                                        if (flag == 0)
-                                        {
-                                            Console.Write("Number is Prime.");
-                                            goto function;
-                                        }
-                                        break;
+                                    }
+                                    if (flag == 0)
+                                    {
+                                        Console.Write("Number is Prime.");
+                                        goto function;
+                                    }
+                                    break;
 
-                                    case "E":
+                                case "E":
                                     {
                                         Console.Write("Enter base number: ");
                                         double base_num = Convert.ToDouble(Console.ReadLine());
@@ -837,7 +1103,7 @@ namespace AdvancedCLIApplication
                                         double volume = (4.0 / 3.0) * pi * (radius * radius * radius);
                                         Console.WriteLine("Volume of the circle: " + volume);
                                         goto function;
-                                    }                                   
+                                    }
                                 case "SR":
                                     {
                                         int runs, balls;
@@ -851,49 +1117,225 @@ namespace AdvancedCLIApplication
                                         goto function;
 
                                     }
-                                    case "L":
-                                        goto BasicMthTxt;
-                                    case "W":
-                                        goto Methods;
-                                    case "T":
-                                        Environment.Exit(0);
-                                        break;
-                                    default:
-                                        Console.WriteLine("Pls enter a valid function!");
-                                        goto function;
-                                }
+                                case "L":
+                                    goto BasicMthTxt;
+                                case "W":
+                                    goto Methods;
+                                case "T":
+                                    Environment.Exit(0);
+                                    break;
+                                default:
+                                    Console.WriteLine("Pls enter a valid function!");
+                                    goto function;
                             }
-                            catch
-                            {
-                                Console.WriteLine("Unexpected Error, pls try again!");
-                                goto function;
-                            }
-                            break;
                         }
+                        catch
+                        {
+                            Console.WriteLine("Unexpected Error, pls try again!");
+                            goto function;
+                        }
+                        break;
+                    }
 
-                    case "RMM":
+                case "R":
+                    {
                         goto Application;
-                    case "exit":
+                    }
+                case "E":
+                    {
                         Environment.Exit(0);
                         break;
-                }
-        }
-        //Function for generating different permutations of the string  
-        static void generatePermutation(String str, int start, int end)
-        {
-            //Prints the permutations  
-            if (start == end - 1)
-                Console.WriteLine(str);
-            else
+                    }
+                case "P":
+                    {
+                    ProMthTxt:
+                        Console.WriteLine("\n\nAvailable Functions: \nBinary, Decimal, Octal, Hexadecimal Conversions (B)\nByte Conversions(C)\nSwitch Method (W)\nTerminate CLI (T)\nShow this list again (L)");
+
+                    ProMthFunctions:
+                        Console.Write("\nChoose your desired function: ");
+                        string ProMthOpts = Console.ReadLine();
+                        switch (ProMthOpts)
+                        {
+                            case "B":
+                                {
+                                BDOHConvos:
+                                    try
+                                    {
+                                        Console.WriteLine("\nAvailable Conversions: \nBinary To Decimal, Hexadecimal, Octal(B) \nDecimal To Binary, Hexadecimal, Octal(D) \nOctal To Binary, Hexadecimal, Decimal(O) \nHexadecimal To Binary, Octal, Decimal(H) \nReturn To Programmer Calculator (R) \nTerminate CLI(T)");
+                                        Console.Write("\nChoose your desired conversion: ");
+                                        string conversionsPro = Console.ReadLine();
+                                        switch (conversionsPro)
+                                        {
+                                            case "B":
+                                                {
+                                                    Console.Write("Enter the desired binary number: ");
+                                                    int num = Convert.ToInt32(Console.ReadLine());
+                                                    Console.Write("Decimal: ");
+                                                    Console.Write(Convert.ToString(num, 10));
+                                                    Console.Write("\n");
+                                                    Console.Write("Octal: ");
+                                                    Console.Write(Convert.ToString(num, 8));
+                                                    Console.Write("\n");
+                                                    Console.Write("Hexadecimal: ");
+                                                    Console.Write(Convert.ToString(num, 16));
+                                                    Console.Write("\n");
+                                                    goto BDOHConvos;
+                                                }
+                                            case "D":
+                                                {
+                                                    Console.Write("Enter the desired decimal number: ");
+                                                    int num1 = Convert.ToInt32(Console.ReadLine());
+                                                    Console.Write("Binary: ");
+                                                    Console.Write(Convert.ToString(num1, 2));
+                                                    Console.Write("\n");
+                                                    Console.Write("Octal: ");
+                                                    Console.Write(Convert.ToString(num1, 8));
+                                                    Console.Write("\n");
+                                                    Console.Write("Hexadecimal: ");
+                                                    Console.Write(Convert.ToString(num1, 16));
+                                                    Console.Write("\n");
+                                                    goto BDOHConvos;
+                                                    
+                                                }
+                                            case "O":
+                                                {
+                                                    Console.Write("Enter the desired octal number: ");
+                                                    int num2 = Convert.ToInt32(Console.ReadLine());
+                                                    Console.Write("Binary: ");
+                                                    Console.Write(Convert.ToString(num2, 2));
+                                                    Console.Write("\n");
+                                                    Console.Write("Hexadecimal: ");
+                                                    Console.Write(Convert.ToString(num2, 16));
+                                                    Console.Write("\n");
+                                                    Console.Write("Decimal: ");
+                                                    Console.Write(Convert.ToString(num2, 10));
+                                                    Console.Write("\n");
+                                                    goto BDOHConvos;
+                                                }
+                                            case "H":
+                                                {
+                                                    Console.Write("Enter the desired hexadecimal number: ");
+                                                    string num3 = Console.ReadLine();
+                                                    Console.Write("Binary: ");
+                                                    Console.Write(Convert.ToInt32(num3, 2));
+                                                    Console.Write("\n");
+                                                    Console.Write("Octal: ");
+                                                    Console.Write(Convert.ToInt32(num3, 8));
+                                                    Console.Write("\n");
+                                                    Console.Write("Decimal: ");
+                                                    Console.Write(Convert.ToInt32(num3, 10));
+                                                    Console.Write("\n");
+                                                    goto BDOHConvos;
+                                                }
+                                            case "R":
+                                                {
+                                                    goto ProMthFunctions;
+                                                }
+                                            case "T":
+                                                {
+                                                    Environment.Exit(0);
+                                                    break;
+                                                }
+                                        }
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Console.WriteLine("Unexpected error occurred!");
+                                        Console.WriteLine("Error Details: " + e.Message);
+                                        goto BDOHConvos;
+                                    }
+                                    goto BDOHConvos;
+                                }
+                            case "C":
+                                {
+                                    Console.WriteLine("This library is currently under development, please use other libraries for now!");
+                                    Console.WriteLine("Exiting Byte Conversion Library...");
+                                    //Console.WriteLine("Available Conversions:-");
+                                    //Console.WriteLine("Bits To B, KB, MB, GB, TB (BI)");
+                                    //Console.WriteLine("B To Bits, KB, MB, GB, TB (B)");
+                                    //Console.WriteLine("KB To Bits, B, MB, GB, TB (KB)");
+                                    //Console.WriteLine("MB To Bits, B, KB, GB, TB (MB)");
+                                    //Console.WriteLine("GB To Bits, B, KB, MB, TB (GB)");
+                                    //Console.WriteLine("TB To Bits, B, KB, MB, GB (TB)");
+
+                                    //Console.Write("Choose your desired conversion: ");
+                                    //string bcOpts = Console.ReadLine();
+                                    //switch(bcOpts)
+                                    //{
+                                    //    case "BI":
+                                    //        {
+                                    //            Console.Write("Enter the bits: ");
+                                    //            double bitsBI = Convert.ToDouble(Console.ReadLine());
+                                    //            double byteBI = bitsBI / 8;
+                                    //            double kbBI = byteBI / 1024;
+                                    //            double mbBI = kbBI / 1024;
+
+
+                                    //        }
+                                    //    case "B":
+                                    //        {
+
+                                    //        }
+                                    //    case "KB":
+                                    //        {
+
+                                    //        }
+                                    //    case "MB":
+                                    //        {
+
+                                    //        }
+                                    //    case "GB":
+                                    //        {
+
+                                    //        }
+                                    //    case "TB":
+                                    //        {
+
+                                    //        }
+
+
+                                    //}
+                                    goto ProMthTxt;
+                                }
+                            case "W":
+                                {
+                                    goto Methods;
+                                }
+                            case "T":
+                                {
+                                    Environment.Exit(0);
+                                    break;
+                                }
+                            case "L":
+                                {
+                                    goto ProMthTxt;
+                                }
+
+                        }
+                        break;
+
+
+                    }
+                case "U":
+                    goto UnitConversions;
+            }
+            //Function for generating different permutations of the string  
+            static void generatePermutation(String str, int start, int end)
             {
-                for (int i = start; i < end; i++)
+                //Prints the permutations  
+                if (start == end - 1)
+                    Console.WriteLine(str);
+                else
                 {
-                    //Swapping the string by fixing a character  
-                    str = swapString(str, start, i);
-                    //Recursively calling function generatePermutation() for rest of the characters   
-                    generatePermutation(str, start + 1, end);
-                    //Backtracking and swapping the characters again.  
-                    str = swapString(str, start, i);
+                    for (int i = start; i < end; i++)
+                    {
+                        //Swapping the string by fixing a character  
+                        str = swapString(str, start, i);
+                        //Recursively calling function generatePermutation() for rest of the characters   
+                        generatePermutation(str, start + 1, end);
+                        //Backtracking and swapping the characters again.  
+                        str = swapString(str, start, i);
+                    }
                 }
             }
         }

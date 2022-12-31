@@ -2,20 +2,22 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <NoWin32Manifest>true</NoWin32Manifest>
     <Company>Blaze Devs</Company>
     <Product>Advanced CLI Application</Product>
-    <Version>1.8.5</Version>
+    <Version>1.9.0</Version>
     <Authors>Blaze Devs</Authors>
     <RootNamespace>AdvancedCLIApp</RootNamespace>
     <AssemblyName>AdvancedCLIApp</AssemblyName>
     <ApplicationIcon>AdvancedCLIApp Logo cyan.ico</ApplicationIcon>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <Copyright>Blaze Devs</Copyright>
     <Nullable>annotations</Nullable>
+    <Win32Resource />
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <AssemblyOriginatorKeyFile>Blaze Devs.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,6 +26,27 @@
 
   <ItemGroup>
     <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
+    <PackageReference Include="YoutubeExplode" Version="6.2.5" />
+    <PackageReference Include="YoutubeExplode.Converter" Version="6.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>
