@@ -6,6 +6,9 @@
     },
     "newProfile1": {
       "commandName": "Executable"
+    },
+    "AdvancedCLIApp": {
+      "commandName": "Project"
     }
   }
 }
